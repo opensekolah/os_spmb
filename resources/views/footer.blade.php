@@ -5,64 +5,69 @@
 
 
 <script>
-function showLoading() {
-    document.getElementById('loading-box').classList.add('active');
-}
+    function showLoading() {
+        document.getElementById('loading-box').classList.add('active');
+    }
 
-function hideLoading() {
-    document.getElementById('loading-box').classList.remove('active');
-}
+    function hideLoading() {
+        document.getElementById('loading-box').classList.remove('active');
+    }
 
-document.addEventListener("DOMContentLoaded", function() {
+    window.onload = hideLoading;
+    window.addEventListener("pageshow", hideLoading);
 
-    document.querySelectorAll("a").forEach(link => {
-        link.addEventListener("click", function() {
-            showLoading();
+    document.addEventListener("DOMContentLoaded", function() {
+
+        document.querySelectorAll("a").forEach(link => {
+            link.addEventListener("click", function() {
+                showLoading();
+            });
         });
-    });
 
-    document.querySelectorAll("form").forEach(form => {
-        form.addEventListener("submit", function() {
-            showLoading();
+        document.querySelectorAll("form").forEach(form => {
+            form.addEventListener("submit", function() {
+                showLoading();
+            });
         });
-    });
 
-});
+    });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 
 <script>
-const notyf = new Notyf({
-    duration: 2500,
-    position: { x: 'left', y: 'bottom' },
-    types: [
-        {
-            type: 'success',
-            background: '#fff',
-            icon: false
+    const notyf = new Notyf({
+        duration: 2500,
+        position: {
+            x: 'left',
+            y: 'bottom'
         },
-        {
-            type: 'error',
-            background: '#fff',
-            icon: false
-        }
-    ]
-});
+        types: [{
+                type: 'success',
+                background: '#fff',
+                icon: false
+            },
+            {
+                type: 'error',
+                background: '#fff',
+                icon: false
+            }
+        ]
+    });
 </script>
 <script>
-<?php if(session('success')): ?>
+    <?php if(session('success')): ?>
     notyf.success("<?php echo session('success'); ?>");
-<?php endif; ?>
+    <?php endif; ?>
 
-<?php if(session('error')): ?>
+    <?php if(session('error')): ?>
     notyf.error("<?php echo session('error'); ?>");
-<?php endif; ?>
+    <?php endif; ?>
 </script>
 
-<script>
-notyf.success('Test berhasil');
-</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

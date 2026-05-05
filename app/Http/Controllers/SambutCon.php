@@ -36,5 +36,13 @@ class SambutCon extends Controller
         return view('masukguru', compact('data'));
     }
 
+    public function keluar()
+    {
+        session()->flush();
+        return redirect('/')->with('success', 'Anda telah keluar');
+    }
+
+    
+
     
 }

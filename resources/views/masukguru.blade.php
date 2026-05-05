@@ -4,18 +4,18 @@
                 <h1>Masuk</h1>
                 <h2><?= $data['app_name'] ?></h2>
                 <p>Selamat Datang Bapak/Ibu Guru <br> Silahkan masukkan Username dan Password untuk mengakses Administrasi</p>
-                <form method="POST" action="/ruangguru">
+                <form method="POST" action="/cekmasukguru">
                         <!-- CSRF kalau di Blade -->
                          @csrf 
 
                         <div class="mb-3">
                             <label class="form-label">Username</label>
-                            <input type="text" class="form-control" name="email" required>
+                            <input type="text" class="form-control" name="username" required>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Password</label>
-                            <input type="password" class="form-control" name="password" required>
+                            <input type="text" class="form-control" name="password" required>
                         </div>
 
                         <div class="mb-3">
