@@ -324,7 +324,12 @@ nav a {
 .blockquote {
     font-size: 1em;
 }
-
+.group-box {
+    transition: 0.2s;
+}
+.group-title {
+    transition: 0.2s;
+}
 
 
 
@@ -383,6 +388,14 @@ nav a {
     flex-direction: row;
     height: auto;
     width: auto;
+}
+
+.menutagihan span{
+    font-size: 8pt;
+}
+
+.menuitem svg{
+    height: 20px;
 }
 .content-area {
     margin: 0;

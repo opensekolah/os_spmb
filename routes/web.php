@@ -7,6 +7,7 @@ use App\Http\Controllers\GuruCon;
 use App\Http\Controllers\WaliCon;
 use App\Http\Controllers\SiswaCon;
 use App\Http\Controllers\InfaqCon;
+use App\Http\Controllers\TagihanCon;
 
 
 
@@ -74,5 +75,14 @@ Route::post('/simpaninfaq', [InfaqCon::class, 'datainfaq_simpan']);
 Route::post('/hapusinfaq/{id}', [InfaqCon::class, 'hapus']);
 Route::get('/editinfaq/{id}', [InfaqCon::class, 'edit']);
 Route::post('/updateinfaq/{id}', [InfaqCon::class, 'update']);
+
+//TagihanCon
+Route::get('/datatagihan', [TagihanCon::class, 'index'])->name('index');
+Route::get('/tambahtagihan', [TagihanCon::class, 'tagihan_tambah']);
+Route::post('/simpantagihan', [TagihanCon::class, 'tagihan_simpan']);
+//Route::get('/datatagihan/pdf/{kelas}', [TagihanCon::class, 'pdf']);
+Route::get('/datatagihan/acara/{id}', [TagihanCon::class, 'byAcara']);
+//Route::get('/datatagihan/pdf/{acara}', [TagihanCon::class, 'pdf']);
+Route::get('/datatagihan/pdf/{acara}/{kelas}', [TagihanCon::class, 'pdf']);
 
 });

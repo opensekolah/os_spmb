@@ -41,7 +41,7 @@
                     <span>Pembayaran</span>
                 </div>
             </a>
-            <a href="">
+            <a href="/datatagihan">
                 <div class="menubarlist <?= $data['title'] == 'Tagihan' ? 'active' : '' ?>">
                     <i data-lucide="file-text"></i>
                     <span>Tagihan</span>

@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tahunajaran extends Model
+class Tagihan extends Model
 {
-    protected $table = 'tahunajaran';
+    protected $table = 'tagihan';
 
     protected $fillable = [
-        'name',
-        'created_at',
+        'id_acara',
+        'id_infaq'
     ];
 
     public $timestamps = false;
