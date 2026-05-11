@@ -35,7 +35,7 @@
                 Pengelolaan :
             </div>
             </a>
-            <a href="">
+            <a href="/datapembayaran">
                 <div class="menubarlist <?= $data['title'] == 'Pembayaran' ? 'active' : '' ?>">
                     <i data-lucide="calculator"></i>
                     <span>Pembayaran</span>

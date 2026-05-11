@@ -8,6 +8,7 @@ use App\Http\Controllers\WaliCon;
 use App\Http\Controllers\SiswaCon;
 use App\Http\Controllers\InfaqCon;
 use App\Http\Controllers\TagihanCon;
+use App\Http\Controllers\PembayaranCon;
 
 
 
@@ -84,5 +85,14 @@ Route::post('/simpantagihan', [TagihanCon::class, 'tagihan_simpan']);
 Route::get('/datatagihan/acara/{id}', [TagihanCon::class, 'byAcara']);
 //Route::get('/datatagihan/pdf/{acara}', [TagihanCon::class, 'pdf']);
 Route::get('/datatagihan/pdf/{acara}/{kelas}', [TagihanCon::class, 'pdf']);
+
+//PembayaranCon
+Route::get('/datapembayaran', [PembayaranCon::class, 'index']);
+Route::get('/tambahpembayaran', [PembayaranCon::class, 'pembayaran_tambah']);
+Route::get('/search-siswa', [PembayaranCon::class, 'search']);
+Route::get('/get-infaq/{id_siswa}', [PembayaranCon::class, 'getInfaq']);
+Route::post('/simpanpembayaran', [PembayaranCon::class, 'pembayaran_simpan']);
+Route::get('/datapembayaran/kwitansi/{id}', [PembayaranCon::class, 'kwitansi']);
+Route::get('/kwitansi/pdf/{id}', [PembayaranCon::class, 'pdfkwitansi']);
 
 });
