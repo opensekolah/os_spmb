@@ -9,7 +9,7 @@
                 <span>Kelola Data Guru</span>
             </div>
         </a>
-        <a href="#">
+        <a href="/pengaturan/pamflet">
             <div class="menuitem bg-primary">
                 <i data-lucide="image"></i>
                 <span>Ubah Pamflet Halaman Masuk</span>

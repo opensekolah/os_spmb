@@ -30,11 +30,7 @@
         </a>
     </div>
 
-    <div class="mb-3 d-flex gap-2 align-items-center">
-        <span>Menampilkan Pembayaran Pada : </span>
-        (date picker)
-
-    </div>
+    
 
 
     <table class="table table-hover">

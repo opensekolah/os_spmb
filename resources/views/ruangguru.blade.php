@@ -8,47 +8,49 @@
         <span class="title-nav mb-3">SMP Ma'arif NU 01 Wanareja</span>
 
         <nav class="menubar">
-            <a href="/ruangguru">
-                <div class="menubarlist <?= $data['title'] == 'Ruang Guru' ? 'active' : '' ?>">
-                    <i data-lucide="home"></i>
-                    <span>Dashboard</span>
-                </div>
-
-                <div class="separator mt-3">
+            @if (session('role') == 'bendahara')
+                <a href="/ruangguru">
+                    <div class="menubarlist <?= $data['title'] == 'Ruang Guru' ? 'active' : '' ?>">
+                        <i data-lucide="home"></i>
+                        <span>Dashboard</span>
+                    </div>
+                </a>
+                <!--div class="separator mt-3">
                     Perencanaan :
-                </div>
-            </a>
-            <a href="/datasiswa">
-                <div class="menubarlist <?= $data['title'] == 'Kelola Data Siswa' ? 'active' : '' ?>">
-                    <i data-lucide="users"></i>
-                    <span>Kelola Data Siswa</span>
-                </div>
-            </a>
-            <a href="/datainfaq">
-                <div class="menubarlist <?= $data['title'] == 'Kelola Data Infaq' ? 'active' : '' ?>">
-                    <i data-lucide="list-checks"></i>
-                    <span>Kelola Data Infaq</span>
-                </div>
-            </a>
+                </div-->
 
-            <div class="separator mt-3">
+                <a href="/datasiswa">
+                    <div class="menubarlist <?= $data['title'] == 'Kelola Data Siswa' ? 'active' : '' ?>">
+                        <i data-lucide="users"></i>
+                        <span>Kelola Data Siswa</span>
+                    </div>
+                </a>
+                <a href="/datainfaq">
+                    <div class="menubarlist <?= $data['title'] == 'Kelola Data Infaq' ? 'active' : '' ?>">
+                        <i data-lucide="list-checks"></i>
+                        <span>Kelola Data Infaq</span>
+                    </div>
+                </a>
+            @endif
+            <!--div class="separator mt-3">
                 Pengelolaan :
-            </div>
-            </a>
+            </div-->
+
             <a href="/datapembayaran">
                 <div class="menubarlist <?= $data['title'] == 'Pembayaran' ? 'active' : '' ?>">
                     <i data-lucide="calculator"></i>
                     <span>Pembayaran</span>
                 </div>
             </a>
-            <a href="/datatagihan">
-                <div class="menubarlist <?= $data['title'] == 'Tagihan' ? 'active' : '' ?>">
-                    <i data-lucide="file-text"></i>
-                    <span>Tagihan</span>
-                </div>
-            </a>
+            @if (session('role') == 'bendahara')
+                <a href="/datatagihan">
+                    <div class="menubarlist <?= $data['title'] == 'Tagihan' ? 'active' : '' ?>">
+                        <i data-lucide="file-text"></i>
+                        <span>Tagihan</span>
+                    </div>
+                </a>
 
-            <div class="separator mt-3">
+                <!--div class="separator mt-3">
                 Pelaporan :
             </div>
             </a>
@@ -73,14 +75,14 @@
 
             <div class="separator mt-3">
 
-            </div>
-            </a>
-            <a href="/pengaturan">
-                <div class="menubarlist <?= $data['title'] == 'Pengaturan' ? 'active' : '' ?>">
-                    <i data-lucide="settings"></i>
-                    <span>Pengaturan</span>
-                </div>
-            </a>
+            </div-->
+                <a href="/pengaturan">
+                    <div class="menubarlist <?= $data['title'] == 'Pengaturan' ? 'active' : '' ?>">
+                        <i data-lucide="settings"></i>
+                        <span>Pengaturan</span>
+                    </div>
+                </a>
+            @endif
             <a href="/keluar">
                 <div class="menubarlist">
                     <i data-lucide="door-open"></i>

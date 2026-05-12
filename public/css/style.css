@@ -456,6 +456,7 @@ nav a {
         flex-direction: row;
         height: auto;
         width: auto;
+        justify-content: flex-start;
     }
 
     .menutagihan span {
@@ -469,5 +470,9 @@ nav a {
     .content-area {
         margin: 0;
         border-radius: 0;
+    }
+
+    #infaqList input{
+        text-align: right;
     }
 }

@@ -160,33 +160,27 @@
 
                                 <tr>
                                     <td class="total">Total Tagihan</td>
-                                    <td class="total right">
-                                        Rp {{ number_format($siswa['total'], 0, ',', '.') }}
-                                    </td>
+                                    <td class="total right">Rp {{ number_format($siswa['total'], 0, ',', '.') }}</td>
                                 </tr>
                             </table>
 
                             <div class="ket">
                                 Ket:
-                                {{ $siswa['total'] > 0 ? 'Belum Lunas' : 'Lunas' }}
-                            </div>
 
+                                @if ($siswa['total'] > 0)
+                                    Belum Lunas
+                                @else
+                                    Lunas
+                                @endif
+                            </div>
                             <hr>
-
-                            <div class="ket">
-                                Jika ada kesalahan, silakan bisa menghubungi Bendahara Ining Suryani, S.Ag.
-                                0881010822346 <br>
-                                Terima Kasih
-                            </div>
+                            <div class="ket">Jika ada kesalahan, silakan bisa
+                                menghubungi Bendahara Ining Suryani, S.Ag. 0881010822346 <br>
+                                Terima Kasih</div>
 
                         </div>
                     </td>
                 @endforeach
-                @for ($i = $chunk->count(); $i < 4; $i++)
-                    <td>
-                        &nbsp;
-                    </td>
-                @endfor
 
             </tr>
         </table>

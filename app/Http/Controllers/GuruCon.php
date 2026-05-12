@@ -9,24 +9,24 @@ use Illuminate\Support\Facades\Crypt;
 
 class GuruCon extends Controller
 {
-    
+
 
     public function ruangguru()
     {
-        $data = [        
-        'title'     => 'Ruang Guru',
+        $data = [
+            'title' => 'Ruang Guru',
         ];
 
         return view('rg-dashboard', compact('data'));
     }
 
-    
+
 
     public function dataguru()
     {
-        $data = [        
-        'title'     => 'Kelola Data Guru',
-        'guru'  => Guru::all(),
+        $data = [
+            'title' => 'Kelola Data Guru',
+            'guru' => Guru::all(),
         ];
 
         return view('rg-pengaturan-dataguru', compact('data'));
@@ -34,8 +34,8 @@ class GuruCon extends Controller
 
     public function dataguru_tambah()
     {
-        $data = [        
-        'title'     => 'Tambah Guru',
+        $data = [
+            'title' => 'Tambah Guru',
         ];
 
         return view('rg-pengaturan-dataguru-tambah', compact('data'));
@@ -73,7 +73,7 @@ class GuruCon extends Controller
 
         $data = [
             'title' => 'Edit Guru',
-            'guru'  => $guru
+            'guru' => $guru
         ];
 
         return view('rg-pengaturan-dataguru-edit', compact('data'));
@@ -89,7 +89,7 @@ class GuruCon extends Controller
 
         $guru = Guru::findOrFail($id);
 
-        
+
 
         $dataUpdate = [
             'name' => $request->name,
@@ -97,7 +97,7 @@ class GuruCon extends Controller
             'role' => $request->role
         ];
 
-        if($request->password){
+        if ($request->password) {
             $dataUpdate['password'] = Crypt::encrypt($request->password);
         }
 
@@ -132,14 +132,20 @@ class GuruCon extends Controller
             'role' => $user->role
         ]);
 
-        $data = [        
-        'title'     => 'Ruang Guru',
+        $data = [
+            'title' => 'Ruang Guru',
         ];
+        
+        $role = session('role');
 
-        return redirect('/ruangguru');
+        return redirect(
+            $role == 'bendahara' ? '/ruangguru' : '/datapembayaran'
+        );
+
+        //return redirect('/ruangguru');
         //return view('rg-dashboard', compact('data'))->with('success', 'Selamat Datang');
     }
 
-    
-    
+
+
 }

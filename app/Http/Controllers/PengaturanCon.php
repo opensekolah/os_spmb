@@ -23,6 +23,16 @@ class PengaturanCon extends Controller
 
         return view('rg-pengaturan', compact('data'));
     }
+    public function ubahpamflet()
+    {
+        $data = [
+            'banner_image' => $this->pengaturan->where('name', 'banner_image')->value('value'),
+            'title'=> 'Ubah Pamflet',
+        ];
+
+        return view('rg-pengaturan-pamflet', compact('data'));
+    }
+
 
     public function updateBanner(Request $request)
     {

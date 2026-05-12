@@ -37,6 +37,7 @@ Route::middleware(['cekmasukguru'])->group(function () {
 //PengaturanCon
 Route::get('/pengaturan', [PengaturanCon::class, 'pengaturan'])->name('pengaturan');
 Route::post('/pengaturan/banner', [PengaturanCon::class, 'updateBanner']);
+Route::get('/pengaturan/pamflet', [PengaturanCon::class, 'ubahpamflet']);
 
 //GuruCon
 

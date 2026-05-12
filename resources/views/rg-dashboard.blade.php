@@ -24,13 +24,13 @@
                 <span>Tanda Terima Honorarium</span>
             </div>
         </a>
-        <a href="">
+        <a href="/tambahpembayaran">
             <div class="menuitem btn btn-primary">
                 <i data-lucide="calculator"></i>
                 <span>Tambah Pembayaran Siswa</span>
             </div>
         </a>
-        <a href="">
+        <a href="/datatagihan">
             <div class="menuitem btn btn-primary">
                 <i data-lucide="file-text"></i>
                 <span>Tagihan Siswa</span>

@@ -204,7 +204,8 @@ class TagihanCon extends Controller
         //return $pdf->stream('tagihan.pdf');
         return $pdf->download('Tagihan_' . $data['acaraname'] . '_' . $data['kelasname'] . '.pdf');
     }
-    public function pdf($acara, $kelas)
+
+    public function old2pdf($acara, $kelas)
     {
         $acaraname = Acara::findOrFail($acara);
         $kelasname = Kelompok::findOrFail($kelas);
@@ -284,7 +285,100 @@ class TagihanCon extends Controller
 
         //$pdf = Pdf::loadView('pdf.tagihan', compact('data', 'acara', 'kelas'));
         $pdf = Pdf::loadView('pdf.tagihan', compact('data', 'acara', 'kelas'))
-    ->setPaper('a4', 'landscape');
+            ->setPaper('a4', 'landscape');
+
+        return $pdf->download(
+            'Tagihan_' . $data['acaraname'] . '_' . $data['kelasname'] . '.pdf'
+        );
+    }
+
+    public function pdf($acara, $kelas)
+    {
+        $acaraname = Acara::findOrFail($acara);
+        $kelasname = Kelompok::findOrFail($kelas);
+
+        // =========================
+        // 1. TAGIHAN
+        // =========================
+        $tagihan = DB::table('tagihan')
+            ->join('siswa', 'tagihan.id_siswa', '=', 'siswa.id')
+            ->where('tagihan.id_acara', $acara)
+            ->where('tagihan.id_kelompok', $kelas)
+            ->select(
+                'tagihan.id_siswa',
+                'tagihan.infaq_id',
+                'tagihan.infaq_harga',
+                'tagihan.infaq_name',
+                'siswa.name as nama_siswa'
+            )
+            ->get()
+            ->groupBy('id_siswa');
+
+        // =========================
+        // 2. PEMBAYARAN
+        // =========================
+        $pembayaran = DB::table('pembayaran')
+            ->select(
+                'id_siswa',
+                'infaq_id',
+                DB::raw('SUM(infaq_harga) as total')
+            )
+            ->groupBy('id_siswa', 'infaq_id')
+            ->get()
+            ->groupBy('id_siswa');
+
+        // =========================
+        // 3. FORMAT HASIL
+        // =========================
+        $result = $tagihan->map(function ($items, $id_siswa) use ($pembayaran) {
+
+            $nama_siswa = $items[0]->nama_siswa;
+            $bayarSiswa = $pembayaran[$id_siswa] ?? collect();
+
+            $total = 0;
+
+            $data = $items->map(function ($t) use ($bayarSiswa, &$total) {
+
+                $itemBayar = $bayarSiswa->firstWhere('infaq_id', $t->infaq_id);
+
+                $sisa = $t->infaq_harga - ($itemBayar->total ?? 0);
+
+                // kalau masih ada sisa, masukin
+                if ($sisa > 0) {
+                    $total += $sisa;
+
+                    return [
+                        'infaq_name' => $t->infaq_name,
+                        'sisa' => $sisa
+                    ];
+                }
+
+                return null;
+
+            })->filter()->values();
+
+            // =========================
+            // 4. JANGAN SKIP SISWA
+            // =========================
+            return [
+                'nama_siswa' => $nama_siswa,
+                'items' => $data,
+                'total' => $total // 🔥 ini penting
+            ];
+        })->values();
+
+        // =========================
+        // 5. DATA VIEW
+        // =========================
+        $data = [
+            'title' => 'Tagihan',
+            'tagihan' => $result,
+            'acaraname' => $acaraname->name,
+            'kelasname' => $kelasname->name,
+        ];
+
+        $pdf = Pdf::loadView('pdf.tagihan', compact('data', 'acara', 'kelas'))
+            ->setPaper('a4', 'landscape');
 
         return $pdf->download(
             'Tagihan_' . $data['acaraname'] . '_' . $data['kelasname'] . '.pdf'
