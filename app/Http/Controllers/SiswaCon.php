@@ -13,12 +13,7 @@ use App\Models\Infaq;
 
 class SiswaCon extends Controller
 {
-    //protected $pengaturan;
-
-    public function __construct()
-    {
-        //$this->pengaturan = new Pengaturan();
-    }
+    
 
     public function index()
     {
@@ -48,15 +43,6 @@ class SiswaCon extends Controller
         return view('rg-siswa-datasiswa', compact('data'));
     }
 
-    /*public function angkatan()
-    {
-        $data = [        
-        'title'     => 'Kelola Data Guru',
-        'guru'  => Guru::all(),
-        ];
-
-        return view('rg-pengaturan-dataguru', compact('data'));
-    }*/
 
     public function angkatan_tambah()
     {

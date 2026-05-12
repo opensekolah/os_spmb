@@ -62,6 +62,8 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ## To do
 
 Besok Tagihan dikurangi pembayaran, Tampilan cetak tagihan
--> sisa tagihan kenaikan kelas
+-> sisa tagihan kenaikan kelas export excel
+sebelum anda membuat kelas baru, terlebih dahulu download data tagihan berikut:
+
 -> migrasi data
 -> deploy

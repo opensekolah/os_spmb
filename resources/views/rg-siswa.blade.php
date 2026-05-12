@@ -13,6 +13,7 @@
 
         <a href="/datasiswa/angkatan/<?= $a->id ?>">
             <div class="menuitem btn btn-primary">
+                <i data-lucide="users"></i>
                 <h3><?= optional($a->kelompok)->name ?></h3>
                 <?php if(optional($a->kelompok)->name === 'Alumni'): ?>
 

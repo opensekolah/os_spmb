@@ -24,7 +24,7 @@
 
     <div class="mb-3">
         <a href="/tambahsiswa/<?= $data['angkatan']->id ?>" class="btn btn-primary">
-            Tambah Siswa
+            <i data-lucide="user-plus"></i> Tambah Siswa
         </a>
         
         
@@ -53,9 +53,9 @@
                 <td><?= $s->no_whatsapp ?></td>
                 <td>
                     <button onclick="window.location.href='/editsiswa/<?= $s->id ?>'"
-                        class="btn btn-sm btn-primary">Edit</button>
-                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
-                        data-id="<?= $s->id ?>">Hapus</button>
+                        class="btn btn-sm btn-outline-primary" title="Edit"><i data-lucide="edit"></i></button>
+                    <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                        data-id="<?= $s->id ?>" title="Hapus"><i data-lucide="trash"></i></button>
                 </td>
             </tr>
             <?php endforeach; ?>

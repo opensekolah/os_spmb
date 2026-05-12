@@ -296,6 +296,23 @@
     });
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const tooltipTriggerList = document.querySelectorAll('[title]');
+        tooltipTriggerList.forEach(function(el) {
+            new bootstrap.Tooltip(el);
+        });
+    });
+</script>
+
+<script>
+    function handleSubmit(form) {
+        const btn = form.querySelector('#btnSimpan');
+        btn.disabled = true;
+        btn.innerText = 'Menyimpan...';
+    }
+</script>
+
 
 </body>
 

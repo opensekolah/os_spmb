@@ -9,12 +9,7 @@ use Illuminate\Support\Facades\Crypt;
 
 class GuruCon extends Controller
 {
-    //protected $pengaturan;
-
-    public function __construct()
-    {
-        //$this->pengaturan = new Pengaturan();
-    }
+    
 
     public function ruangguru()
     {

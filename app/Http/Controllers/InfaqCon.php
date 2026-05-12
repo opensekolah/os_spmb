@@ -13,21 +13,16 @@ use App\Models\Kelompok;
 
 class InfaqCon extends Controller
 {
-    //protected $pengaturan;
 
-    public function __construct()
-    {
-        //$this->pengaturan = new Pengaturan();
-    }
 
     public function index()
     {
-        $data = [        
-        'title'     => 'Kelola Data Infaq',
-        'tahunajaran' => Tahunajaran::all(),
-        /*with('kelompok')
-            ->orderBy('name', 'desc')
-            ->get(),*/
+        $data = [
+            'title' => 'Kelola Data Infaq',
+            'tahunajaran' => Tahunajaran::all(),
+            /*with('kelompok')
+                ->orderBy('name', 'desc')
+                ->get(),*/
         ];
 
         return view('rg-infaq', compact('data'));
@@ -58,121 +53,26 @@ class InfaqCon extends Controller
         return view('rg-infaq-datainfaq', compact('data'));
     }
 
-    /*public function byTahunajaran($id)
-    {
-        $tahunajaran = Tahunajaran::findOrFail($id);
-        //$tahunajaran = Angkatan::withCount('siswa')->find($id);
-
-        $infaq = Infaq::where('id_tahunajaran', $id)->get();
-
-        $data = [
-            'title' => 'Data Infaq Tahun Ajaran ' . $tahunajaran->name,
-            'infaq' => $infaq,
-            'tahunajaran' => $tahunajaran
-        ];
-
-        return view('rg-infaq-datainfaq', compact('data'));
-    }*/
-
-    /*public function angkatan()
-    {
-        $data = [        
-        'title'     => 'Kelola Data Guru',
-        'guru'  => Guru::all(),
-        ];
-
-        return view('rg-pengaturan-dataguru', compact('data'));
-    }
-
-    public function angkatan_tambah()
-    {
-        $data = [        
-        'title'     => 'Kenaikan Kelas & Tambah Kelas Baru',
-        'kelompok' => Kelompok::all(),
-        ];
-
-        return view('rg-siswa-angkatan-tambah', compact('data'));
-    }
-
-    public function angkatan_simpan(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'id_kelompok' => 'required'
-        ]);
-
-        Angkatan::create([
-            'name' => $request->name,
-            'id_kelompok' => $request->id_kelompok
-        ]);
-
-        return redirect('/datasiswa')->with('success', 'Angkatan berhasil disimpan');
-    }
-
-    public function naikkelas(Request $request)
-    {
-        $request->validate([
-            'name' => 'required'
-        ]);
-
-        DB::beginTransaction();
-
-        try {
-
-             
-            $ada = Angkatan::whereIn('id_kelompok', [2,3,4])->exists();
-
-            if ($ada) {
-
-               
-                Angkatan::where('id_kelompok', 4)->update([
-                    'id_kelompok' => 5,
-                    'tahun_lulus' => now()
-                ]);
-
-                Angkatan::where('id_kelompok', 3)->update(['id_kelompok' => 4]);
-                Angkatan::where('id_kelompok', 2)->update(['id_kelompok' => 3]);
-            }
-
-            
-            Angkatan::create([
-                'name' => $request->name,
-                'id_kelompok' => 2
-            ]);
-
-            DB::commit();
-
-            return redirect('/datasiswa')->with('success', 'Kenaikan kelas berhasil');
-
-        } catch (\Exception $e) {
-
-            DB::rollBack();
-
-            //return redirect()->back()->with('error', 'Gagal proses: ' . $e->getMessage());
-            dd($e);
-        }
-    } */
-
     public function datainfaq_tambah($id)
     {
         $tahunajaran = Tahunajaran::find($id);
-        $data = [        
-        'title'     => 'Tambah Infaq Tahun Ajaran ' . $tahunajaran->name,
-        'tahunajaran'  => $tahunajaran,
-        'kelompok' => Kelompok::all()
+        $data = [
+            'title' => 'Tambah Infaq Tahun Ajaran ' . $tahunajaran->name,
+            'tahunajaran' => $tahunajaran,
+            'kelompok' => Kelompok::all()
         ];
 
         return view('rg-infaq-datainfaq-tambah', compact('data'));
     }
 
     public function datainfaq_simpan(Request $request)
-    {               
-        $names      = $request->name;
-        $kelompok   = $request->id_kelompok;
-        $hargas   = $request->harga;
-        $tahunId    = $request->id_tahunajaran;
+    {
+        $names = $request->name;
+        $kelompok = $request->id_kelompok;
+        $hargas = $request->harga;
+        $tahunId = $request->id_tahunajaran;
 
-        
+
         if (empty(array_filter($names))) {
             return back()
                 ->withInput()
@@ -182,15 +82,15 @@ class InfaqCon extends Controller
         for ($i = 0; $i < count($names); $i++) {
 
             $nama = trim($names[$i] ?? '');
-            $kls  = $kelompok[$i] ?? '';
-            $nom  = $hargas[$i] ?? '';
+            $kls = $kelompok[$i] ?? '';
+            $nom = $hargas[$i] ?? '';
 
             // kalau salah satu isi → semua wajib
             if ($nama || $kls || $nom) {
                 if (!$nama || !$kls || !$nom) {
                     return back()
                         ->withInput()
-                        ->with('error', 'Semua field harus diisi (baris ke-' . ($i+1) . ')');
+                        ->with('error', 'Semua field harus diisi (baris ke-' . ($i + 1) . ')');
                 }
             }
         }
@@ -198,15 +98,17 @@ class InfaqCon extends Controller
         for ($i = 0; $i < count($names); $i++) {
 
             $nama = trim($names[$i] ?? '');
-            $kls  = $kelompok[$i] ?? '';
-            $nom  = $hargas[$i] ?? '';
+            $kls = $kelompok[$i] ?? '';
+            $nom = $hargas[$i] ?? '';
 
             // skip kosong total
-            if (!$nama && !$kls && !$nom) continue;
+            if (!$nama && !$kls && !$nom)
+                continue;
 
             $angkatan = Angkatan::where('id_kelompok', $kls)->first();
 
-            if (!$angkatan) continue;
+            if (!$angkatan)
+                continue;
 
             Infaq::create([
                 'name' => $nama,
@@ -235,8 +137,8 @@ class InfaqCon extends Controller
 
         $data = [
             'title' => 'Edit Infaq',
-            'infaq'  => $infaq,
-            'kelompok' => Kelompok::all(),
+            'infaq' => $infaq,
+            'kelompok' => Kelompok::whereIn('id', [2, 3, 4])->get(),
         ];
 
         return view('rg-infaq-datainfaq-edit', compact('data'));
@@ -245,9 +147,9 @@ class InfaqCon extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-        'name' => 'required',
-        'harga' => 'required|numeric',
-        'id_kelompok' => 'required'
+            'name' => 'required',
+            'harga' => 'required|numeric',
+            'id_kelompok' => 'required'
         ]);
 
         $infaq = Infaq::findOrFail($id);
@@ -267,5 +169,5 @@ class InfaqCon extends Controller
         //return redirect('/dataguru')->with('success', 'Data berhasil diperbarui');
         return redirect()->route('infaq.tahunajaran', $id)->with('success', 'Data berhasil diperbarui');
     }
-    
+
 }

@@ -11,17 +11,13 @@ use App\Models\Tahunajaran;
 use App\Models\Infaq;
 use App\Models\Acara;
 use App\Models\Tagihan;
+use App\Models\Pembayaran;
 //use App\Models\Pengaturan;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 class TagihanCon extends Controller
 {
-    //protected $pengaturan;
 
-    public function __construct()
-    {
-        //$this->pengaturan = new Pengaturan();
-    }
 
     public function index()
     {
@@ -64,15 +60,6 @@ class TagihanCon extends Controller
         return view('rg-tagihan-datatagihan', compact('data'));
     }
 
-    /*public function angkatan()
-    {
-        $data = [        
-        'title'     => 'Kelola Data Guru',
-        'guru'  => Guru::all(),
-        ];
-
-        return view('rg-pengaturan-dataguru', compact('data'));
-    }*/
 
     public function tagihan_tambah()
     {
@@ -163,7 +150,7 @@ class TagihanCon extends Controller
 
             DB::commit();
 
-            return redirect()->back()->with('success', 'Tagihan berhasil dibuat');
+            return redirect('/datatagihan')->with('success', 'Tagihan berhasil dibuat');
 
         } catch (\Exception $e) {
 
@@ -176,321 +163,15 @@ class TagihanCon extends Controller
 
 
 
-    public function naikkelas(Request $request)
+    public function hapus($id_acara)
     {
-        $request->validate([
-            'name' => 'required',
-            'tahunajaran_name' => 'required'
-        ]);
+        Acara::where('id', $id_acara)->delete();
 
-        DB::beginTransaction();
-
-        try {
-
-
-            $ada = Angkatan::whereIn('id_kelompok', [2, 3, 4])->exists();
-
-            if ($ada) {
-
-
-                Angkatan::where('id_kelompok', 4)->update([
-                    'id_kelompok' => 5,
-                    'tahun_lulus' => now()
-                ]);
-
-                Angkatan::where('id_kelompok', 3)->update(['id_kelompok' => 4]);
-                Angkatan::where('id_kelompok', 2)->update(['id_kelompok' => 3]);
-            }
-
-
-            Angkatan::create([
-                'name' => $request->name,
-                'id_kelompok' => 2
-            ]);
-
-            /*Tahunajaran::create([
-                'name' => $request->tahunajaran_name,
-            ]);*/
-            $tahun = Tahunajaran::create([
-                'name' => $request->tahunajaran_name,
-            ]);
-
-            $id_tahun = $tahun->id;
-
-            $bulan = [
-                '01 Infaq Juli',
-                '02 Infaq Agustus',
-                '03 Infaq September',
-                '04 Infaq Oktober',
-                '05 Infaq November',
-                '06 Infaq Desember',
-                '07 Infaq Januari',
-                '08 Infaq Februari',
-                '09 Infaq Maret',
-                '10 Infaq April',
-                '11 Infaq Mei',
-                '12 Infaq Juni',
-            ];
-
-            $kelases = [2, 3, 4]; // 7,8,9
-
-            foreach ($kelases as $kls) {
-
-                $angkatan = Angkatan::where('id_kelompok', $kls)->first();
-                if (!$angkatan)
-                    continue;
-
-                //  1. Infaq bulanan
-                foreach ($bulan as $nama) {
-                    Infaq::create([
-                        'name' => $nama,
-                        'id_tahunajaran' => $id_tahun,
-                        'id_kelompok' => $kls,
-                        'id_angkatan' => $angkatan->id,
-                        'harga' => 50000
-                    ]);
-                }
-
-                //  2. Umum semua kelas
-                $umum = [
-                    ['Pemeliharaan Sarpras', 250000],
-                    ['Ekstrakurikuler', 150000],
-                    ['ASTS 1', 50000],
-                    ['ASAS 1', 50000],
-                    ['ASAT', 50000],
-                ];
-
-                foreach ($umum as $u) {
-                    Infaq::create([
-                        'name' => $u[0],
-                        'id_tahunajaran' => $id_tahun,
-                        'id_kelompok' => $kls,
-                        'id_angkatan' => $angkatan->id,
-                        'harga' => $u[1]
-                    ]);
-                }
-
-                //  3. Kelas 7 & 8
-                if (in_array($kls, [2, 3])) {
-                    Infaq::create([
-                        'name' => 'ASTS 2',
-                        'id_tahunajaran' => $id_tahun,
-                        'id_kelompok' => $kls,
-                        'id_angkatan' => $angkatan->id,
-                        'harga' => 50000
-                    ]);
-                }
-
-                //  4. Kelas 7 saja
-                if ($kls == 2) {
-                    $kelas7 = [
-                        ['Atribut', 80000],
-                        ['Sampul Raport', 50000],
-                        ['Kaos Olahraga', 40000],
-                    ];
-
-                    foreach ($kelas7 as $k7) {
-                        Infaq::create([
-                            'name' => $k7[0],
-                            'id_tahunajaran' => $id_tahun,
-                            'id_kelompok' => $kls,
-                            'id_angkatan' => $angkatan->id,
-                            'harga' => $k7[1]
-                        ]);
-                    }
-                }
-
-                //  5. Kelas 8 saja
-                if ($kls == 3) {
-                    Infaq::create([
-                        'name' => 'Asesmen Nasional',
-                        'id_tahunajaran' => $id_tahun,
-                        'id_kelompok' => $kls,
-                        'id_angkatan' => $angkatan->id,
-                        'harga' => 200000
-                    ]);
-                }
-
-                //  6. Kelas 9 saja
-                if ($kls == 4) {
-                    Infaq::create([
-                        'name' => 'ASAJ',
-                        'id_tahunajaran' => $id_tahun,
-                        'id_kelompok' => $kls,
-                        'id_angkatan' => $angkatan->id,
-                        'harga' => 600000
-                    ]);
-                }
-            }
-
-            DB::commit();
-
-            return redirect('/datasiswa')->with('success', 'Kenaikan kelas dan Tahun Ajaran Baru berhasil dibuat');
-
-        } catch (\Exception $e) {
-
-            DB::rollBack();
-
-            //return redirect()->back()->with('error', 'Gagal proses: ' . $e->getMessage());
-            dd($e);
-        }
+        return redirect('/datatagihan')->with('success', 'Data berhasil dihapus');
     }
 
-    public function datasiswa_tambah($id)
-    {
-        $angkatan = Angkatan::find($id);
-        $data = [
-            'title' => 'Tambah Siswa ' . optional($angkatan->kelompok)->name,
-            'angkatan' => $angkatan
-        ];
 
-        return view('rg-siswa-datasiswa-tambah', compact('data'));
-    }
-
-    public function datasiswa_simpan(Request $request)
-    {
-        $names = $request->name;
-        $whatsapps = $request->no_whatsapp;
-        $id = $request->id_angkatan;
-
-        if (empty(array_filter($names))) {
-            return redirect()->route('siswa.angkatan', $id)
-                ->with('error', 'Tidak ada data yang diisi');
-        }
-
-        for ($i = 0; $i < count($names); $i++) {
-
-            $nama = trim($names[$i] ?? '');
-            $wa = trim($whatsapps[$i] ?? '');
-
-            if (($nama && !$wa) || (!$nama && $wa)) {
-                return back()
-                    ->withInput()
-                    ->with('error', 'Nama dan No Whatsapp harus diisi bersamaan (cek baris ke-' . ($i + 1) . ')');
-            }
-        }
-
-        $jumlah = 0;
-
-        for ($i = 0; $i < count($names); $i++) {
-
-            $nama = trim($names[$i] ?? '');
-            $wa = trim($whatsapps[$i] ?? '');
-
-            if (!$nama && !$wa)
-                continue;
-
-            Siswa::create([
-                'name' => $nama,
-                'no_whatsapp' => $wa,
-                'id_angkatan' => $id
-            ]);
-
-            $jumlah++;
-        }
-
-        return redirect()->route('siswa.angkatan', $id)
-            ->with('success', 'Berhasil menyimpan ' . $jumlah . ' data siswa');
-    }
-
-    public function hapus($id)
-    {
-        Siswa::where('id', $id)->delete();
-
-        return redirect()->back()->with('success', 'Data berhasil dihapus');
-    }
-
-    public function edit($id)
-    {
-        $siswa = Siswa::findOrFail($id);
-
-        $data = [
-            'title' => 'Edit Siswa',
-            'siswa' => $siswa
-        ];
-
-        return view('rg-siswa-datasiswa-edit', compact('data'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required',
-            'no_whatsapp' => 'required',
-            //'role' => 'required'
-        ]);
-
-        $siswa = Siswa::findOrFail($id);
-        $id = $request->id_angkatan;
-
-        $dataUpdate = [
-            'name' => $request->name,
-            'no_whatsapp' => $request->no_whatsapp,
-            //'role' => $request->role
-        ];
-
-        $siswa->update($dataUpdate);
-
-        //return redirect('/dataguru')->with('success', 'Data berhasil diperbarui');
-        return redirect()->route('siswa.angkatan', $id)->with('success', 'Data berhasil diperbarui');
-    }
-
-    /*public function pdf($acara)
-    {
-        /*$data = DB::table('tagihan')
-            ->join('siswa', 'tagihan.id_siswa', '=', 'siswa.id')
-            ->where('tagihan.id_acara', $acara)
-            ->select(
-                'tagihan.*',
-                'siswa.name as nama_siswa'
-            )
-            ->get();*/
-    // dd($data);
-
-    /*$data = DB::table('tagihan')
-        ->join('siswa', 'tagihan.id_siswa', '=', 'siswa.id')
-        ->where('tagihan.id_acara', $acara)
-        ->select(
-            'tagihan.*',
-            'siswa.name as nama_siswa'
-        )
-        ->get()
-        ->groupBy('id_siswa');*/
-
-    /*$data = DB::table('tagihan')
-        ->join('siswa', 'tagihan.id_siswa', '=', 'siswa.id')
-        ->where('tagihan.id_acara', $acara)
-        ->select(
-            'tagihan.*',
-            'siswa.name as nama_siswa'
-        )
-        ->get()
-        ->groupBy('id_kelompok');-----
-
-    $tagihan = DB::table('tagihan')
-        ->join('siswa', 'tagihan.id_siswa', '=', 'siswa.id')
-        ->where('tagihan.id_acara', $acara)
-        ->select(
-            'tagihan.*',
-            'siswa.name as nama_siswa'
-        )
-        ->get()
-        ->groupBy('id_kelompok')
-        ->map(function ($kelasGroup) {
-            return $kelasGroup->groupBy('id_siswa');
-        });
-
-    $data = [
-        'title' => 'Tagihan',
-        'tagihan' => $tagihan,
-
-    ];
-
-    //return view('pdf.tagihan', compact('data', 'acara'));
-    return view('rg-tagihan-datatagihan', compact('data', 'acara'));
-}*/
-
-    public function pdf($acara, $kelas)
+    public function oldpdf($acara, $kelas)
     {
         //dd($acara);
         $acaraname = Acara::find($acara);
@@ -522,6 +203,92 @@ class TagihanCon extends Controller
 
         //return $pdf->stream('tagihan.pdf');
         return $pdf->download('Tagihan_' . $data['acaraname'] . '_' . $data['kelasname'] . '.pdf');
+    }
+    public function pdf($acara, $kelas)
+    {
+        $acaraname = Acara::findOrFail($acara);
+        $kelasname = Kelompok::findOrFail($kelas);
+
+        // =========================
+        // 1. AMBIL TAGIHAN (MASTER)
+        // =========================
+        $tagihan = DB::table('tagihan')
+            ->join('siswa', 'tagihan.id_siswa', '=', 'siswa.id')
+            ->where('tagihan.id_acara', $acara)
+            ->where('tagihan.id_kelompok', $kelas)
+            ->select(
+                'tagihan.id_siswa',
+                'tagihan.infaq_id',
+                'tagihan.infaq_harga',
+                'tagihan.infaq_name',
+                'siswa.name as nama_siswa'
+            )
+            ->get()
+            ->groupBy('id_siswa');
+
+        // =========================
+        // 2. PEMBAYARAN
+        // =========================
+        $pembayaran = DB::table('pembayaran')
+            ->select(
+                'id_siswa',
+                'infaq_id',
+                DB::raw('SUM(infaq_harga) as total')
+            )
+            ->groupBy('id_siswa', 'infaq_id')
+            ->get()
+            ->groupBy('id_siswa');
+
+        // =========================
+        // 3. HITUNG SISA + FILTER
+        // =========================
+        $result = $tagihan->map(function ($items, $id_siswa) use ($pembayaran) {
+
+            $nama_siswa = $items[0]->nama_siswa;
+
+            $data = $items->map(function ($t) use ($pembayaran, $id_siswa) {
+
+                $bayar = $pembayaran[$id_siswa] ?? collect();
+                $itemBayar = $bayar->firstWhere('infaq_id', $t->infaq_id);
+
+                $sisa = $t->infaq_harga - ($itemBayar->total ?? 0);
+
+                // skip kalau lunas
+                if ($sisa <= 0)
+                    return null;
+
+                return [
+                    'infaq_name' => $t->infaq_name,
+                    'sisa' => $sisa
+                ];
+            })->filter()->values();
+
+            // kalau semua lunas → skip siswa
+            if ($data->isEmpty())
+                return null;
+
+            return [
+                'nama_siswa' => $nama_siswa,
+                'items' => $data
+            ];
+        })
+            ->filter()
+            ->values();
+
+        $data = [
+            'title' => 'Tagihan',
+            'tagihan' => $result,
+            'acaraname' => $acaraname->name,
+            'kelasname' => $kelasname->name,
+        ];
+
+        //$pdf = Pdf::loadView('pdf.tagihan', compact('data', 'acara', 'kelas'));
+        $pdf = Pdf::loadView('pdf.tagihan', compact('data', 'acara', 'kelas'))
+    ->setPaper('a4', 'landscape');
+
+        return $pdf->download(
+            'Tagihan_' . $data['acaraname'] . '_' . $data['kelasname'] . '.pdf'
+        );
     }
 
 }

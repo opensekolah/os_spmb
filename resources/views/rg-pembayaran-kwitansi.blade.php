@@ -11,13 +11,13 @@
 
                 </blockquote>
 <div class="mb-3">
-    <button type="button" class="btn btn-outline-secondary" onclick="history.back()">
-        Kembali
+    <button type="button" class="btn btn-outline-secondary" onclick="history.back()" title="Kembali">
+        <i data-lucide="arrow-left"></i>
     </button>
 
     <button onclick="window.location.href='/kwitansi/pdf/{{ $data['id_transaksi'] }}'"
                         class="btn btn-primary">
-                        Download Kwitansi
+                        <i data-lucide="download"></i> Download Kwitansi
                     </button>
 </div>
     

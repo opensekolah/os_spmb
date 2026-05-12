@@ -27,6 +27,7 @@ Route::get('/test-db', function () {
 
 //SambutCon
 Route::get('/', [SambutCon::class, 'masukwali'])->name('masukwali');
+//Route::get('/', function () {    return 'OK';});
 Route::get('/masukguru', [SambutCon::class, 'masukguru'])->name('masukguru');
 Route::post('/cekmasukguru', [GuruCon::class, 'cekmasukguru'])->name('cekmasukguru');
 Route::get('/keluar', [SambutCon::class, 'keluar'])->name('keluar');
@@ -39,8 +40,8 @@ Route::post('/pengaturan/banner', [PengaturanCon::class, 'updateBanner']);
 
 //GuruCon
 
-Route::post('/ruangguru', [GuruCon::class, 'ruangguru'])->name('ruangguru');
-Route::get('/ruangguru', [GuruCon::class, 'ruangguru'])->name('ruangguru');
+Route::post('/ruangguru', [GuruCon::class, 'ruangguru']);
+Route::get('/ruangguru', [GuruCon::class, 'ruangguru']);
 Route::get('/dataguru', [GuruCon::class, 'dataguru'])->name('dataguru');
 Route::get('/tambahguru', [GuruCon::class, 'dataguru_tambah'])->name('dataguru_tambah');
 Route::post('/simpanguru', [GuruCon::class, 'dataguru_simpan'])->name('dataguru_simpan');
@@ -52,7 +53,7 @@ Route::post('/updateguru/{id}', [GuruCon::class, 'update']);
 Route::post('/ruangwali', [WaliCon::class, 'ruangwali'])->name('ruangwali');
 
 //SiswaCon
-Route::get('/datasiswa', [SiswaCon::class, 'index'])->name('index');
+Route::get('/datasiswa', [SiswaCon::class, 'index']);
 Route::get('/datasiswa/angkatan/{id}', [SiswaCon::class, 'byAngkatan'])->name('siswa.angkatan');
 
 Route::get('/tambahangkatan', [SiswaCon::class, 'angkatan_tambah'])->name('angkatan_tambah');
@@ -68,7 +69,7 @@ Route::get('/editsiswa/{id}', [SiswaCon::class, 'edit']);
 Route::post('/updatesiswa/{id}', [SiswaCon::class, 'update']);
 
 //InfaqCon
-Route::get('/datainfaq', [InfaqCon::class, 'index'])->name('index');
+Route::get('/datainfaq', [InfaqCon::class, 'index']);
 Route::get('/datainfaq/tahunajaran/{id}', [InfaqCon::class, 'byTahunajaran'])->name('infaq.tahunajaran');
 
 Route::get('/tambahinfaq/{id}', [InfaqCon::class, 'datainfaq_tambah']);
@@ -78,13 +79,14 @@ Route::get('/editinfaq/{id}', [InfaqCon::class, 'edit']);
 Route::post('/updateinfaq/{id}', [InfaqCon::class, 'update']);
 
 //TagihanCon
-Route::get('/datatagihan', [TagihanCon::class, 'index'])->name('index');
+Route::get('/datatagihan', [TagihanCon::class, 'index']);
 Route::get('/tambahtagihan', [TagihanCon::class, 'tagihan_tambah']);
 Route::post('/simpantagihan', [TagihanCon::class, 'tagihan_simpan']);
 //Route::get('/datatagihan/pdf/{kelas}', [TagihanCon::class, 'pdf']);
 Route::get('/datatagihan/acara/{id}', [TagihanCon::class, 'byAcara']);
 //Route::get('/datatagihan/pdf/{acara}', [TagihanCon::class, 'pdf']);
 Route::get('/datatagihan/pdf/{acara}/{kelas}', [TagihanCon::class, 'pdf']);
+Route::post('/hapusacara/{id}', [TagihanCon::class, 'hapus']);
 
 //PembayaranCon
 Route::get('/datapembayaran', [PembayaranCon::class, 'index']);
@@ -94,5 +96,6 @@ Route::get('/get-infaq/{id_siswa}', [PembayaranCon::class, 'getInfaq']);
 Route::post('/simpanpembayaran', [PembayaranCon::class, 'pembayaran_simpan']);
 Route::get('/datapembayaran/kwitansi/{id}', [PembayaranCon::class, 'kwitansi']);
 Route::get('/kwitansi/pdf/{id}', [PembayaranCon::class, 'pdfkwitansi']);
+Route::post('/hapuspembayaran/{id}', [PembayaranCon::class, 'hapus']);
 
 });

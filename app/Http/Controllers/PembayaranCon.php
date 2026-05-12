@@ -18,12 +18,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class PembayaranCon extends Controller
 {
-    //protected $pengaturan;
 
-    public function __construct()
-    {
-        //$this->pengaturan = new Pengaturan();
-    }
 
     public function index()
     {
@@ -110,24 +105,6 @@ class PembayaranCon extends Controller
         ]);*/
     }
 
-    public function oldgetInfaq($id_siswa)
-    {
-        try {
-
-            $siswa = Siswa::find($id_siswa);
-
-            $infaq = DB::table('infaq')
-                ->where('id_angkatan', $siswa->id_angkatan)
-                ->get();
-
-
-
-            return response()->json($infaq);
-
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-        }
-    }
 
     public function getInfaq($id_siswa)
     {
@@ -162,7 +139,7 @@ class PembayaranCon extends Controller
 
                 $sisa = $item->harga - $sudahBayar;
 
-                // 🔥 skip kalau sudah lunas
+
                 if ($sisa <= 0) {
                     return null;
                 }
@@ -279,92 +256,16 @@ class PembayaranCon extends Controller
             dd($e->getMessage());
         }
     }
-    public function datasiswa_simpan(Request $request)
-    {
-        $names = $request->name;
-        $whatsapps = $request->no_whatsapp;
-        $id = $request->id_angkatan;
 
-        if (empty(array_filter($names))) {
-            return redirect()->route('siswa.angkatan', $id)
-                ->with('error', 'Tidak ada data yang diisi');
+    public function hapus($id_transaksi)
+    {
+        $deleted = Pembayaran::where('id_transaksi', $id_transaksi)->delete();
+
+        if ($deleted == 0) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan');
         }
 
-        for ($i = 0; $i < count($names); $i++) {
-
-            $nama = trim($names[$i] ?? '');
-            $wa = trim($whatsapps[$i] ?? '');
-
-            if (($nama && !$wa) || (!$nama && $wa)) {
-                return back()
-                    ->withInput()
-                    ->with('error', 'Nama dan No Whatsapp harus diisi bersamaan (cek baris ke-' . ($i + 1) . ')');
-            }
-        }
-
-        $jumlah = 0;
-
-        for ($i = 0; $i < count($names); $i++) {
-
-            $nama = trim($names[$i] ?? '');
-            $wa = trim($whatsapps[$i] ?? '');
-
-            if (!$nama && !$wa)
-                continue;
-
-            Siswa::create([
-                'name' => $nama,
-                'no_whatsapp' => $wa,
-                'id_angkatan' => $id
-            ]);
-
-            $jumlah++;
-        }
-
-        return redirect()->route('siswa.angkatan', $id)
-            ->with('success', 'Berhasil menyimpan ' . $jumlah . ' data siswa');
-    }
-
-    public function hapus($id)
-    {
-        Siswa::where('id', $id)->delete();
-
-        return redirect()->back()->with('success', 'Data berhasil dihapus');
-    }
-
-    public function edit($id)
-    {
-        $siswa = Siswa::findOrFail($id);
-
-        $data = [
-            'title' => 'Edit Siswa',
-            'siswa' => $siswa
-        ];
-
-        return view('rg-siswa-datasiswa-edit', compact('data'));
-    }
-
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'name' => 'required',
-            'no_whatsapp' => 'required',
-            //'role' => 'required'
-        ]);
-
-        $siswa = Siswa::findOrFail($id);
-        $id = $request->id_angkatan;
-
-        $dataUpdate = [
-            'name' => $request->name,
-            'no_whatsapp' => $request->no_whatsapp,
-            //'role' => $request->role
-        ];
-
-        $siswa->update($dataUpdate);
-
-        //return redirect('/dataguru')->with('success', 'Data berhasil diperbarui');
-        return redirect()->route('siswa.angkatan', $id)->with('success', 'Data berhasil diperbarui');
+        return redirect()->back()->with('success', 'Pembayaran berhasil dihapus');
     }
 
     public function kwitansi($id_transaksi)
@@ -437,7 +338,7 @@ class PembayaranCon extends Controller
             'nama_petugas' => $first->nama_petugas,
             'jenis_bayar' => $first->jenis_bayar,
             'tanggal' => date('d-m-Y', strtotime($first->tanggal_pembayaran)),
-            
+
             'total_bayar' => $total,
             'detail' => $pembayaran
         ];

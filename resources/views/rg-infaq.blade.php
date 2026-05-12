@@ -21,6 +21,7 @@
 
         <a href="/datainfaq/tahunajaran/<?= $t->id ?>">
             <div class="menuitem btn btn-primary">
+                <i data-lucide="graduation-cap"></i>
                 <h3><?= $t->name ?></h3>
             </div>
         </a>

@@ -4,7 +4,7 @@
     <!-- start content-area -->
 
 
-    <form method="POST" action="/simpanpembayaran">
+    <form method="POST" action="/simpanpembayaran" onsubmit="handleSubmit(this)">
         @csrf
         <div class="row mb-3">
             <div class="col-md-9">
@@ -118,9 +118,9 @@
 
 
 
-        <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-primary">
-                Simpan Semua
+        <div class="d-flex gap-2 mb-5">
+            <button type="submit" class="btn btn-primary" id="btnSimpan">
+                Simpan Pembayaran
             </button>
 
             <button type="button" class="btn btn-outline-secondary" onclick="history.back()">

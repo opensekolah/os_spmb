@@ -2,34 +2,18 @@
 @include('ruangguru')
 <div class="content-area">
     <!-- start content-area -->
-    <div class="mb-3">
-        <p>Anda akan membuat tagihan baru pada kegiatan tertentu. Isilah nama dengan kegiatan yang akan dilakukan.
-            Contoh: ASTS 1 2026 <br>
-            Kemudian pilihlah infaq pada setiap kelas yang akan dibuat tagihan.</p>
-    </div>
-    <!--blockquote class="blockquote p-3 bg-light border-start border-4 border-primary rounded">
-
-        <p class="mb-2">Kelas 7 <i data-lucide="arrow-right"></i> Kelas 8</p>
-        <p class="mb-2">Kelas 8 <i data-lucide="arrow-right"></i> Kelas 9</p>
-        <p class="mb-2">Kelas 9 <i data-lucide="arrow-right"></i> Alumni</p>
-
-    </blockquote>
-
-    <div class="mb-3">
-        <p>Kemudian anda perlu mengisi data:</p>
-    </div>
+    
     <blockquote class="blockquote p-3 bg-light border-start border-4 border-primary rounded">
 
-        <p class="mb-2">Tahun Masuk <i data-lucide="arrow-right"></i> Untuk membuat Kelas baru. Contoh: 2026</p>
-        <p class="mb-2">Tahun Ajaran <i data-lucide="arrow-right"></i> Untuk membuat Infaq pada tahun ajaran ini. Contoh: 2026/2027</p>
+        <p>Anda akan membuat tagihan baru pada kegiatan tertentu. Isilah nama dengan kegiatan yang akan dilakukan.
+            Contoh: ASTS 1 2026 </p>
+            <p>
+               Kemudian pilihlah infaq pada setiap kelas yang akan dibuat tagihan. 
+            </p>
 
     </blockquote>
 
-    <div class="mb-3">
-        <p>Setelah ini, anda dapat menambah, mengatur dan menghapus Infaq di menu <span class="badge bg-primary rounded-pill px-3 py-2">
-                Kelola Data Infaq
-            </span></p>
-    </div-->
+    
 
 
     <form method="POST" action="/simpantagihan">

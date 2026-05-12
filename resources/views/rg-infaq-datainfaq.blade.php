@@ -26,7 +26,7 @@
 
         <!-- Tombol tambah -->
         <a href="/tambahinfaq/<?= $data['tahunajaran']->id ?>" class="btn btn-primary">
-            Tambah Infaq
+            <i data-lucide="plus"></i> Tambah Infaq
         </a>
     </div>
     
@@ -91,9 +91,9 @@
                 <td>Rp <?= number_format($i->harga, 0, ',', '.') ?></td>
                 <td>
                     <button onclick="window.location.href='/editinfaq/<?= $i->id ?>'"
-                        class="btn btn-sm btn-primary">Edit</button>
+                        class="btn btn-sm btn-primary" title="Edit"><i data-lucide="edit"></i></button>
                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
-                        data-id="<?= $i->id ?>">Hapus</button>
+                        data-id="<?= $i->id ?>" title="Hapus"><i data-lucide="trash"></i></button>
                 </td>
             </tr>
             <?php endforeach; ?>

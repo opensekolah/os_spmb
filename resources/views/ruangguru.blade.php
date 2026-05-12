@@ -96,7 +96,7 @@
     <div class="b">
         <div class="navbar">
             <span class="ms-3">Aplikasi Pengelola Infaq</span>
-            <div class="profil"><i data-lucide="user"></i><span>Arvin Noer Hakim</span></div>
+            <div class="profil"><i data-lucide="user"></i><span>{{ session('name') }}</span></div>
         </div>
         <div class="content">
             <div class="title-area">

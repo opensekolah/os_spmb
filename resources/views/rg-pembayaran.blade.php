@@ -26,7 +26,7 @@
 
         <!-- Tombol tambah -->
         <a href="/tambahpembayaran" class="btn btn-primary">
-            Tambah Pembayaran
+            <i data-lucide="plus"></i> Tambah Pembayaran
         </a>
     </div>
 
@@ -77,13 +77,13 @@
 
                 <td>
                     <button onclick="window.location.href='/datapembayaran/kwitansi/{{ $p['id_transaksi'] }}'"
-                        class="btn btn-sm btn-primary">
-                        Lihat Kwitansi
+                        class="btn btn-sm btn-outline-primary" title="Lihat Kwitansi">
+                        <i data-lucide="file-text"></i> 
                     </button>
 
-                    <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
-                        data-id="{{ $p['id_transaksi'] }}">
-                        Hapus
+                    <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                        data-id="{{ $p['id_transaksi'] }}" title="Hapus">
+                        <i data-lucide="trash"></i>
                     </button>
                 </td>
             </tr>
@@ -146,7 +146,7 @@
         var id = button.getAttribute('data-id');
 
         var form = document.getElementById('formHapus');
-        form.action = '/hapusinfaq/' + id;
+        form.action = '/hapuspembayaran/' + id;
     });
 </script>
 
