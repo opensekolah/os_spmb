@@ -16,7 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'cekmasukguru' => \App\Http\Middleware\CekMasukGuru::class,
         ]);
 
-        $middleware->append(CekInstalasi::class);
+        //$middleware->append(CekInstalasi::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -27,8 +27,8 @@ Route::get('/test-db', function () {
 });
 
 //InstalCon
-Route::get('/install', [InstalCon::class, 'index']);
-Route::post('/install', [InstalCon::class, 'install']);
+//Route::get('/install', [InstalCon::class, 'index']);
+//Route::post('/install', [InstalCon::class, 'install']);
 
 //SambutCon
 Route::get('/', [SambutCon::class, 'masukwali'])->name('masukwali');
