@@ -15,4 +15,9 @@ class Siswa extends Model
     ];
 
     public $timestamps = false;
+
+    public function angkatan()
+    {
+        return $this->belongsTo(Angkatan::class, 'id_angkatan');
+    }
 }

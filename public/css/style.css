@@ -91,6 +91,10 @@ img.banner-masuk-bg {
     background-image: var(--gradien);
 }
 
+.dash-wali {
+    background-image: var(--gradien);
+}
+
 .layoutadmin .b {
     /*background-color: blue;*/
     width: 83%;
@@ -191,6 +195,14 @@ nav a {
     padding: 0.5em;
     margin-right: 1em;
     border-radius: 2em;
+    overflow: hidden;
+}
+
+
+.profil img{
+    object-fit: cover;
+    width: 32px;
+    height: 32px;
 }
 
 .title-area {
@@ -472,7 +484,7 @@ nav a {
         border-radius: 0;
     }
 
-    #infaqList input{
+    #infaqList input {
         text-align: right;
     }
 }
