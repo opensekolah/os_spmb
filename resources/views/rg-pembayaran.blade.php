@@ -30,72 +30,73 @@
         </a>
     </div>
 
-    
 
 
-    <table class="table table-hover">
-        <thead class="table-light">
-            <tr>
-                <th>Tanggal</th>
-                <th>Nama Siswa</th>
-                <th>Petugas</th>
-                <th>Jenis Pembayaran</th>
-                <th>Total Pembayaran</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if(count($data['pembayaran']) > 0): ?>
+    <div class="table-responsive">
+        <table class="table table-hover text-nowrap">
+            <thead class="table-light">
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Nama Siswa</th>
+                    <th>Petugas</th>
+                    <th>Jenis Pembayaran</th>
+                    <th>Total Pembayaran</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if(count($data['pembayaran']) > 0): ?>
 
 
-            <?php foreach($data['pembayaran'] as $p): ?>
-            <tr>
-                <td>
-                    {{ \Carbon\Carbon::parse($p['tanggal_pembayaran'])->translatedFormat('j F Y') }}
-                </td>
+                <?php foreach($data['pembayaran'] as $p): ?>
+                <tr>
+                    <td>
+                        {{ \Carbon\Carbon::parse($p['tanggal_pembayaran'])->translatedFormat('j F Y') }}
+                    </td>
 
-                <td>
-                    {{ $p['nama_siswa'] }}
-                </td>
+                    <td>
+                        {{ $p['nama_siswa'] }}
+                    </td>
 
-                <td>
-                    {{ $p['nama_petugas'] }}
-                </td>
+                    <td>
+                        {{ $p['nama_petugas'] }}
+                    </td>
 
-                <td>
-                    {{ $p['jenis_bayar'] }}
-                </td>
+                    <td>
+                        {{ $p['jenis_bayar'] }}
+                    </td>
 
-                <td>
-                    Rp {{ number_format($p['total_bayar'], 0, ',', '.') }}
-                  
-                </td>
+                    <td>
+                        Rp {{ number_format($p['total_bayar'], 0, ',', '.') }}
 
-                <td>
-                    <button onclick="window.location.href='/datapembayaran/kwitansi/{{ $p['id_transaksi'] }}'"
-                        class="btn btn-sm btn-outline-primary" title="Lihat Kwitansi">
-                        <i data-lucide="file-text"></i> 
-                    </button>
+                    </td>
 
-                    <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
-                        data-id="{{ $p['id_transaksi'] }}" title="Hapus">
-                        <i data-lucide="trash"></i>
-                    </button>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-            <?php else: ?>
+                    <td>
+                        <button onclick="window.location.href='/datapembayaran/kwitansi/{{ $p['id_transaksi'] }}'"
+                            class="btn btn-sm btn-outline-primary" title="Lihat Kwitansi">
+                            <i data-lucide="file-text"></i>
+                        </button>
 
-            <tr>
-                <td colspan="6" class="text-center text-muted">
-                    Data pembayaran belum ada
-                </td>
-            </tr>
+                        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#confirmDeleteModal" data-id="{{ $p['id_transaksi'] }}" title="Hapus">
+                            <i data-lucide="trash"></i>
+                        </button>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+                <?php else: ?>
 
-            <?php endif; ?>
+                <tr>
+                    <td colspan="6" class="text-center text-muted">
+                        Data pembayaran belum ada
+                    </td>
+                </tr>
 
-        </tbody>
-    </table>
+                <?php endif; ?>
+
+            </tbody>
+        </table>
+    </div><!-- end table responsive -->
 
 </div> <!-- end content-area -->
 </div> <!-- end content -->
