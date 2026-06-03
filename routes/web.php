@@ -10,6 +10,7 @@ use App\Http\Controllers\InfaqCon;
 use App\Http\Controllers\TagihanCon;
 use App\Http\Controllers\PembayaranCon;
 use App\Http\Controllers\InstalCon;
+use App\Http\Controllers\KelasCon;
 
 
 
@@ -31,14 +32,23 @@ Route::get('/test-db', function () {
 //Route::post('/install', [InstalCon::class, 'install']);
 
 //SambutCon
-Route::get('/', [SambutCon::class, 'masukwali'])->name('masukwali');
+//Route::get('/', [SambutCon::class, 'masukwali'])->name('masukwali');
+Route::get('/', [SambutCon::class, 'siswadaftar']);
+Route::get('/install', [SambutCon::class, 'install']);
+Route::post('/install', [SambutCon::class, 'saveinstall']);
 //Route::get('/', function () {    return 'OK';});
 Route::get('/masukguru', [SambutCon::class, 'masukguru'])->name('masukguru');
 Route::post('/cekmasukguru', [GuruCon::class, 'cekmasukguru'])->name('cekmasukguru');
+Route::get('/masuksiswa', [SambutCon::class, 'masuksiswa']);
+Route::post('/masuk_kelas', [SambutCon::class, 'masuk_kelas']);
 Route::get('/keluar', [SambutCon::class, 'keluar'])->name('keluar');
 
 //WaliCon
-Route::post('/ruangwali', [WaliCon::class, 'ruangwali']);
+//Route::post('/ruangwali', [WaliCon::class, 'ruangwali']);
+Route::post('/siswadaftar', [SiswaCon::class, 'siswa_daftar']);
+Route::get('/ruangkelas', [KelasCon::class, 'ruangkelas']);
+
+Route::post('/siswaidentitas', [SiswaCon::class, 'siswa_identitas']);
 
 
 Route::middleware(['cekmasukguru'])->group(function () {

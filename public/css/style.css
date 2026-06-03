@@ -6,7 +6,7 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Fredoka', sans-serif;
 }
 
 .h1,
@@ -87,8 +87,10 @@ img.banner-masuk-bg {
     /*background-color: blue;*/
     width: 50%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     background-image: var(--gradien);
+    /*height: 100%;*/
+    overflow: auto;
 }
 
 .dash-wali {
@@ -108,9 +110,10 @@ img.banner-masuk-bg {
     margin: 1em;
     padding: 1em;
     width: 100%;
-    height: auto;
+    /*max-height: 90vh;*/
     background-color: #fff;
     border-radius: 1em;
+    /*overflow: auto;*/
 }
 
 .option-card {
@@ -199,7 +202,7 @@ nav a {
 }
 
 
-.profil img{
+.profil img {
     object-fit: cover;
     width: 32px;
     height: 32px;
@@ -406,6 +409,103 @@ nav a {
     padding-left: 14px;
 }
 
+.logo-sekolah {
+    max-width: 140px;
+    /* atur ukuran */
+    height: auto;
+    /* biar proporsional */
+    border-radius: 0;
+    /* tidak bulat */
+    object-fit: contain;
+    /* tidak kepotong */
+    background: transparent;
+
+    /* optional biar tetap bagus */
+    padding: 10px;
+    transition: 0.3s;
+}
+
+.logo-sekolah:hover {
+    transform: scale(1.05);
+}
+
+.judul-spmb {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0d6efd;
+}
+
+.tahun-ajaran {
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.deskripsi-spmb {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.btn-masuk {
+    font-size: 18px;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 40px;
+    transition: 0.3s;
+}
+
+.btn-masuk:hover {
+    background: #0d6efd;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-guru {
+    background: linear-gradient(45deg, #198754, #20c997);
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 40px;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-guru:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+.form-section {
+    background: #f8f9fa;
+}
+
+.input-keren {
+    border-radius: 12px;
+    padding: 12px;
+    transition: 0.3s;
+    border: 1px solid #ddd;
+}
+
+.input-keren:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 10px rgba(13, 110, 253, 0.2);
+    transform: scale(1.02);
+}
+
+.pill-hijau {
+    display: inline-block;
+    background: linear-gradient(45deg, #198754, #20c997);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
 
 
 

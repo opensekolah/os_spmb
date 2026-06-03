@@ -313,7 +313,23 @@
         btn.innerText = 'Menyimpan...';
     }
 </script>
+<script>
+    let sudahPlay = false;
 
+    function playMusic() {
+        const audio = document.getElementById('bg-music');
+
+        if (!sudahPlay) {
+            audio.play().catch(() => {});
+            sudahPlay = true;
+        }
+    }
+
+    // trigger saat klik / fokus input
+    document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('focus', playMusic);
+    });
+</script>
 
 </body>
 

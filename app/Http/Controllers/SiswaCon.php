@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Angkatan;
 use App\Models\Siswa;
+use App\Models\Identitas_siswa;
 use App\Models\Kelompok;
 use App\Models\Tahunajaran;
 use App\Models\Infaq;
@@ -13,18 +14,130 @@ use App\Models\Infaq;
 
 class SiswaCon extends Controller
 {
-    
+
 
     public function index()
     {
-        $data = [        
-        'title'     => 'Kelola Data Siswa',
-        'angkatan' => Angkatan::with('kelompok')
-            ->orderBy('name', 'desc')
-            ->get(),
+        $data = [
+            'title' => 'Kelola Data Siswa',
+            'angkatan' => Angkatan::with('kelompok')
+                ->orderBy('name', 'desc')
+                ->get(),
         ];
 
         return view('rg-siswa', compact('data'));
+    }
+
+    public function siswa_daftar(Request $request)
+    {
+        $request->validate([
+            'nisn' => 'required',
+            'name' => 'required',
+            'no_whatsapp' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        $siswa = Siswa::create([
+            'nisn' => $request->nisn,
+            'name' => $request->name,
+            'no_whatsapp' => $request->no_whatsapp,
+            'email' => $request->email,
+            'status' => 'Calon Murid',
+        ]);
+
+        Identitas_siswa::create([
+            'nisn' => $request->nisn,
+        ]);
+
+
+
+        session([
+            'siswa' => [
+                'nisn' => $siswa->nisn,
+            ]
+        ]);
+
+        return redirect('/ruangkelas')->with('success', 'Pendaftaran Berhasil');
+    }
+
+    public function siswa_identitas(Request $request)
+    {
+        $request->validate([
+            'nisn' => 'required',
+            'name' => 'required',
+        ]);
+
+        $nisn_asli = $request->nisn_asli;
+        $nisn_baru = $request->nisn;
+
+        // cek data
+        $siswa = Siswa::where('nisn', $nisn_asli)->first();
+        if (!$siswa) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan, tidak bisa update siswa');
+        }
+
+        $siswa->update([
+            'nisn' => $request->nisn,
+            'name' => $request->name,
+            'no_whatsapp' => $request->no_whatsapp,
+            'email' => $request->email,
+        ]);
+        session([
+            'siswa' => [
+                'nisn' => $siswa->nisn
+            ]
+        ]);
+
+        $identitas_siswa = Identitas_siswa::where('nisn', $nisn_baru)->first();
+
+        if (!$identitas_siswa) {
+            return redirect()->back()->with('error', 'Data tidak ditemukan, tidak bisa update identitas');
+        }
+
+        // update data
+        $identitas_siswa->update([
+            'nisn' => $request->nisn,
+            'jk' => $request->jk,
+            'asal_sekolah' => $request->asal_sekolah,
+            'nik' => $request->nik,
+            'no_kk' => $request->no_kk,
+            'tempat_lahir' => $request->tempat_lahir,
+            'tgl_lahir' => $request->tgl_lahir,
+            'no_reg_akta' => $request->no_reg_akta,
+            'agama' => $request->agama,
+            'warganegara' => $request->warganegara,
+            'kebutuhan_khusus' => $request->kebutuhan_khusus,
+            'alamat' => $request->alamat,
+            'rt' => $request->rt,
+            'rw' => $request->rw,
+            'dusun' => $request->dusun,
+            'desa' => $request->desa,
+            'kecamatan' => $request->kecamatan,
+            'kodepos' => $request->kodepos,
+            'tempat_tinggal' => $request->tempat_tinggal,
+            'moda_transportasi' => $request->moda_transportasi,
+            'anak_ke' => $request->anak_ke,
+            'punya_kip' => $request->punya_kip,
+
+            // ayah
+            'nama_ayah' => $request->nama_ayah,
+            'nik_ayah' => $request->nik_ayah,
+            'tgl_lahir_ayah' => $request->tgl_lahir_ayah,
+            'pendidikan_ayah' => $request->pendidikan_ayah,
+            'pekerjaan_ayah' => $request->pekerjaan_ayah,
+            'penghasilan_ayah' => $request->penghasilan_ayah,
+
+            // ibu
+            'nama_ibu' => $request->nama_ibu,
+            'nik_ibu' => $request->nik_ibu,
+            'tgl_lahir_ibu' => $request->tgl_lahir_ibu,
+            'pendidikan_ibu' => $request->pendidikan_ibu,
+            'pekerjaan_ibu' => $request->pekerjaan_ibu,
+            'penghasilan_ibu' => $request->penghasilan_ibu,
+        ]);
+
+        //return redirect()->back()->with('success', 'Formulir berhasil disimpan');
+        return redirect('/ruangkelas')->with('success', 'Formulir berhasil disimpan');
     }
 
     public function byAngkatan($id)
@@ -46,9 +159,9 @@ class SiswaCon extends Controller
 
     public function angkatan_tambah()
     {
-        $data = [        
-        'title'     => 'Kenaikan Kelas & Tahun Ajaran Baru',
-        'kelompok' => Kelompok::all(),
+        $data = [
+            'title' => 'Kenaikan Kelas & Tahun Ajaran Baru',
+            'kelompok' => Kelompok::all(),
         ];
 
         return view('rg-siswa-angkatan-tambah', compact('data'));
@@ -80,12 +193,12 @@ class SiswaCon extends Controller
 
         try {
 
-             
-            $ada = Angkatan::whereIn('id_kelompok', [2,3,4])->exists();
+
+            $ada = Angkatan::whereIn('id_kelompok', [2, 3, 4])->exists();
 
             if ($ada) {
 
-               
+
                 Angkatan::where('id_kelompok', 4)->update([
                     'id_kelompok' => 5,
                     'tahun_lulus' => now()
@@ -95,7 +208,7 @@ class SiswaCon extends Controller
                 Angkatan::where('id_kelompok', 2)->update(['id_kelompok' => 3]);
             }
 
-            
+
             Angkatan::create([
                 'name' => $request->name,
                 'id_kelompok' => 2
@@ -125,12 +238,13 @@ class SiswaCon extends Controller
                 '12 Infaq Juni',
             ];
 
-            $kelases = [2,3,4]; // 7,8,9
+            $kelases = [2, 3, 4]; // 7,8,9
 
             foreach ($kelases as $kls) {
 
                 $angkatan = Angkatan::where('id_kelompok', $kls)->first();
-                if (!$angkatan) continue;
+                if (!$angkatan)
+                    continue;
 
                 //  1. Infaq bulanan
                 foreach ($bulan as $nama) {
@@ -163,7 +277,7 @@ class SiswaCon extends Controller
                 }
 
                 //  3. Kelas 7 & 8
-                if (in_array($kls, [2,3])) {
+                if (in_array($kls, [2, 3])) {
                     Infaq::create([
                         'name' => 'ASTS 2',
                         'id_tahunajaran' => $id_tahun,
@@ -231,16 +345,16 @@ class SiswaCon extends Controller
     public function datasiswa_tambah($id)
     {
         $angkatan = Angkatan::find($id);
-        $data = [        
-        'title'     => 'Tambah Siswa ' . optional($angkatan->kelompok)->name,
-        'angkatan'  => $angkatan
+        $data = [
+            'title' => 'Tambah Siswa ' . optional($angkatan->kelompok)->name,
+            'angkatan' => $angkatan
         ];
 
         return view('rg-siswa-datasiswa-tambah', compact('data'));
     }
 
     public function datasiswa_simpan(Request $request)
-    {        
+    {
         $names = $request->name;
         $whatsapps = $request->no_whatsapp;
         $id = $request->id_angkatan;
@@ -253,12 +367,12 @@ class SiswaCon extends Controller
         for ($i = 0; $i < count($names); $i++) {
 
             $nama = trim($names[$i] ?? '');
-            $wa   = trim($whatsapps[$i] ?? '');
+            $wa = trim($whatsapps[$i] ?? '');
 
             if (($nama && !$wa) || (!$nama && $wa)) {
                 return back()
                     ->withInput()
-                    ->with('error', 'Nama dan No Whatsapp harus diisi bersamaan (cek baris ke-' . ($i+1) . ')');
+                    ->with('error', 'Nama dan No Whatsapp harus diisi bersamaan (cek baris ke-' . ($i + 1) . ')');
             }
         }
 
@@ -267,9 +381,10 @@ class SiswaCon extends Controller
         for ($i = 0; $i < count($names); $i++) {
 
             $nama = trim($names[$i] ?? '');
-            $wa   = trim($whatsapps[$i] ?? '');
+            $wa = trim($whatsapps[$i] ?? '');
 
-            if (!$nama && !$wa) continue;
+            if (!$nama && !$wa)
+                continue;
 
             Siswa::create([
                 'name' => $nama,
@@ -277,7 +392,7 @@ class SiswaCon extends Controller
                 'id_angkatan' => $id
             ]);
 
-            $jumlah++; 
+            $jumlah++;
         }
 
         return redirect()->route('siswa.angkatan', $id)
@@ -297,7 +412,7 @@ class SiswaCon extends Controller
 
         $data = [
             'title' => 'Edit Siswa',
-            'siswa'  => $siswa
+            'siswa' => $siswa
         ];
 
         return view('rg-siswa-datasiswa-edit', compact('data'));
@@ -312,7 +427,7 @@ class SiswaCon extends Controller
         ]);
 
         $siswa = Siswa::findOrFail($id);
-        $id = $request->id_angkatan;        
+        $id = $request->id_angkatan;
 
         $dataUpdate = [
             'name' => $request->name,
@@ -325,5 +440,5 @@ class SiswaCon extends Controller
         //return redirect('/dataguru')->with('success', 'Data berhasil diperbarui');
         return redirect()->route('siswa.angkatan', $id)->with('success', 'Data berhasil diperbarui');
     }
-    
+
 }
