@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2026 at 03:56 AM
+-- Generation Time: Jun 03, 2026 at 12:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -54,15 +54,15 @@ CREATE TABLE `identitas_siswa` (
   `nama_ayah` varchar(40) DEFAULT NULL,
   `nik_ayah` varchar(40) DEFAULT NULL,
   `tgl_lahir_ayah` date DEFAULT NULL,
-  `pendidikan_ayah` varchar(10) DEFAULT NULL,
+  `pendidikan_ayah` varchar(40) DEFAULT NULL,
   `pekerjaan_ayah` varchar(40) DEFAULT NULL,
-  `penghasilan_ayah` int(11) DEFAULT NULL,
+  `penghasilan_ayah` varchar(40) DEFAULT NULL,
   `nama_ibu` varchar(40) DEFAULT NULL,
   `nik_ibu` varchar(40) DEFAULT NULL,
   `tgl_lahir_ibu` date DEFAULT NULL,
-  `pendidikan_ibu` varchar(10) DEFAULT NULL,
+  `pendidikan_ibu` varchar(40) DEFAULT NULL,
   `pekerjaan_ibu` varchar(40) DEFAULT NULL,
-  `penghasilan_ibu` int(11) DEFAULT NULL
+  `penghasilan_ibu` varchar(40) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -76,6 +76,16 @@ ALTER TABLE `identitas_siswa`
   ADD PRIMARY KEY (`id`),
   ADD KEY `nisn` (`nisn`);
 
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `identitas_siswa`
+--
+ALTER TABLE `identitas_siswa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+COMMIT;
 --
 -- Constraints for dumped tables
 --

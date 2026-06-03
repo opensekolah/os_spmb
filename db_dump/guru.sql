@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2026 at 03:32 AM
+-- Generation Time: Jun 03, 2026 at 12:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `apin`
+-- Database: `os_spmb`
 --
 
 -- --------------------------------------------------------
@@ -38,6 +38,10 @@ CREATE TABLE `guru` (
 --
 -- Dumping data for table `guru`
 --
+
+INSERT INTO `guru` (`id`, `name`, `username`, `password`, `role`) VALUES
+(1, 'Admin', 'hakimarvinnoer', '$2y$12$i1EQ8lSIU7cC6woHe7Vn.uvfKTsY3tUs5H07aeHiJMWcdxx/5zKf2', 'admin');
+
 --
 -- Indexes for dumped tables
 --
@@ -55,6 +59,9 @@ ALTER TABLE `guru`
 --
 -- AUTO_INCREMENT for table `guru`
 --
+ALTER TABLE `guru`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
