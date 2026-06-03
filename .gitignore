@@ -46,4 +46,10 @@ user.php
 database-awal.sql
 welcome.blade.php
 rg-tagihan.blade.php
-
+rg-tagihan*
+rg-siswa.blade.php
+rg-siswa-datasiswa-*
+rg-siswa-angkatan*
+rg-pembayaran*
+rg-infaq*
+instal.blade.php
