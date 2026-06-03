@@ -2,32 +2,24 @@
 @include('ruangguru')
 <div class="content-area">
     <!-- start content-area -->
-    
+
 
     <blockquote class="blockquote p-3 bg-light border-start border-4 border-primary rounded">
 
         <p class="mb-2">
-            Siswa-siswi <strong><?= optional($data['angkatan']->kelompok)->name ?></strong> ini adalah Angkatan
-            
-            <span class="badge bg-primary rounded-pill px-3 py-2">
-                <?= $data['angkatan']->name ?>
-            </span>
-        </p>
-        <p class="mb-2">
-            Jumlah siswa : <span class="badge bg-success rounded-pill px-3 py-2">
-        <?= $data['angkatan']->siswa_count ?> Siswa
-    </span>
+            Pendaftaran siswa hanya bisa dilakukan di halaman utama SPMB. <br>
+            Edit data siswa hanya bisa dilakukan di halaman Masuk Siswa
         </p>
 
     </blockquote>
 
 
     <div class="mb-3">
-        <a href="/tambahsiswa/<?= $data['angkatan']->id ?>" class="btn btn-primary">
-            <i data-lucide="user-plus"></i> Tambah Siswa
+        <a href="/datasiswaexcel" class="btn btn-success">
+            <i data-lucide="download"></i> Download Excel Data Siswa Baru
         </a>
-        
-        
+
+
     </div>
 
 
@@ -37,6 +29,7 @@
                 <th>No</th>
                 <th>Nama</th>
                 <th>Nomor Whatsapp</th>
+                <th>Status</th>
                 <!--th>Username</th>
                 <th>Password</th-->
                 <th>Aksi</th>
@@ -51,18 +44,20 @@
                 <td><?= $no++ ?></td>
                 <td><?= $s->name ?></td>
                 <td><?= $s->no_whatsapp ?></td>
+                <td><?= $s->status ?></td>
                 <td>
-                    <button onclick="window.location.href='/editsiswa/<?= $s->id ?>'"
-                        class="btn btn-sm btn-outline-primary" title="Edit"><i data-lucide="edit"></i></button>
-                    <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
-                        data-id="<?= $s->id ?>" title="Hapus"><i data-lucide="trash"></i></button>
+                    <button onclick="window.location.href='/terima/<?= $s->id ?>'" class="btn btn-sm btn-outline-success"
+                        title="Terima"><i data-lucide="check"></i></button>
+                    <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
+                        onclick="window.location.href='/tolak/<?= $s->id ?>'" title="Tolak"><i
+                            data-lucide="x"></i></button>
                 </td>
             </tr>
             <?php endforeach; ?>
             <?php else: ?>
 
             <tr>
-                <td colspan="4" class="text-center text-muted">
+                <td colspan="5" class="text-center text-muted">
                     Data siswa belum ada
                 </td>
             </tr>

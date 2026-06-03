@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 //use App\Models\Pengaturan;
 use App\Models\Guru;
+use App\Models\Data_sekolah;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 
 class GuruCon extends Controller
 {
@@ -13,7 +15,14 @@ class GuruCon extends Controller
 
     public function ruangguru()
     {
+        $data_sekolah = Data_sekolah::first();
+
+        if (!$data_sekolah) {
+            return redirect('/install')->with('success', 'Instalasi Website SPMB');
+        }
+
         $data = [
+            'data_sekolah' => $data_sekolah,
             'title' => 'Ruang Guru',
         ];
 
@@ -120,7 +129,7 @@ class GuruCon extends Controller
         }
 
         // cek password (decrypt karena kamu pakai encrypt)
-        if ($request->password != Crypt::decrypt($user->password)) {
+        if (!Hash::check($request->password, $user->password)) {
             return back()->with('error', 'Password salah');
         }
 
@@ -135,12 +144,10 @@ class GuruCon extends Controller
         $data = [
             'title' => 'Ruang Guru',
         ];
-        
+
         $role = session('role');
 
-        return redirect(
-            $role == 'bendahara' ? '/ruangguru' : '/datapembayaran'
-        );
+        return redirect('/ruangguru');
 
         //return redirect('/ruangguru');
         //return view('rg-dashboard', compact('data'))->with('success', 'Selamat Datang');

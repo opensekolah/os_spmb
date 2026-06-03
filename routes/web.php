@@ -14,6 +14,7 @@ use App\Http\Controllers\KelasCon;
 
 
 
+
 /*Route::get('/', function () {
     return view('welcome');
 });*/
@@ -72,7 +73,15 @@ Route::middleware(['cekmasukguru'])->group(function () {
 
 
     //SiswaCon
-    Route::get('/datasiswa', [SiswaCon::class, 'index']);
+    Route::get('/datasiswabaru', [SiswaCon::class, 'index']);
+    Route::get('/terima/{id}', [SiswaCon::class, 'terima']);
+    Route::get('/tolak/{id}', [SiswaCon::class, 'tolak']);
+    Route::get('/datasiswaexcel', [SiswaCon::class, 'exportExcel']);
+
+
+
+
+
     Route::get('/datasiswa/angkatan/{id}', [SiswaCon::class, 'byAngkatan'])->name('siswa.angkatan');
 
     Route::get('/tambahangkatan', [SiswaCon::class, 'angkatan_tambah'])->name('angkatan_tambah');

@@ -2,7 +2,7 @@
 @include('ruangguru')
 <div class="content-area">
 
-    <div class="menukotak">
+    <!--div class="menukotak">
         <a href="https://docs.google.com/spreadsheets/d/1GlDb-cdsMgWWpJTq8mafmPPLioJwM63Zw9IVLgVGVxg/edit?usp=sharing"
             target="_blank">
             <div class="menuitem btn btn-success">
@@ -50,7 +50,7 @@
                 <span>Tagihan Alumni</span>
             </div>
         </a>
-    </div> <!-- end menukotak -->
+    </div--> <!-- end menukotak -->
 
 
 

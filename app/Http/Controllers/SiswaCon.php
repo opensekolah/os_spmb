@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Angkatan;
 use App\Models\Siswa;
+use App\Models\Data_sekolah;
 use App\Models\Identitas_siswa;
 use App\Models\Kelompok;
 use App\Models\Tahunajaran;
 use App\Models\Infaq;
 //use App\Models\Pengaturan;
+use App\Exports\SiswaExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SiswaCon extends Controller
 {
@@ -18,14 +21,23 @@ class SiswaCon extends Controller
 
     public function index()
     {
+
+
+        $siswa = Siswa::all();
+
+        $data_sekolah = Data_sekolah::first();
+
+        if (!$data_sekolah) {
+            return redirect('/install')->with('success', 'Instalasi Website SPMB');
+        }
+
         $data = [
-            'title' => 'Kelola Data Siswa',
-            'angkatan' => Angkatan::with('kelompok')
-                ->orderBy('name', 'desc')
-                ->get(),
+            'data_sekolah' => $data_sekolah,
+            'title' => 'Data Siswa Baru',
+            'siswa' => $siswa,
         ];
 
-        return view('rg-siswa', compact('data'));
+        return view('rg-siswa-datasiswa', compact('data'));
     }
 
     public function siswa_daftar(Request $request)
@@ -139,6 +151,50 @@ class SiswaCon extends Controller
         //return redirect()->back()->with('success', 'Formulir berhasil disimpan');
         return redirect('/ruangkelas')->with('success', 'Formulir berhasil disimpan');
     }
+    public function terima($id)
+    {
+        $siswa = Siswa::find($id);
+
+        if (!$siswa) {
+            return back()->with('error', 'Data siswa tidak ditemukan');
+        }
+
+        $siswa->update([
+            'status' => 'Diterima'
+        ]);
+
+        return back()->with('success', 'Siswa berhasil diterima');
+    }
+
+    public function tolak($id)
+    {
+        $siswa = Siswa::find($id);
+
+        if (!$siswa) {
+            return back()->with('error', 'Data siswa tidak ditemukan');
+        }
+
+        $siswa->update([
+            'status' => 'Calon Murid'
+        ]);
+
+        return back()->with('success', 'Siswa dikembalikan ke calon murid');
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new SiswaExport, 'Data-Siswa-Baru.xlsx');
+    }
+
+
+
+
+
+
+
+
+
+
 
     public function byAngkatan($id)
     {
