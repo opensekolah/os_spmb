@@ -53,3 +53,5 @@ rg-siswa-angkatan*
 rg-pembayaran*
 rg-infaq*
 instal.blade.php
+.env.example
+

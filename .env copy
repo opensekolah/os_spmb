@@ -1,8 +1,10 @@
-APP_NAME=Laravel
+APP_NAME=OpenSekolah_SPMB
 APP_ENV=local
-APP_KEY=
+# ---> php artisan key:generate
+APP_KEY=base64:
 APP_DEBUG=true
-APP_URL=http://localhost:8000
+# ---> Url Website
+APP_URL=
 
 APP_LOCALE=en
 APP_FALLBACK_LOCALE=en
@@ -24,6 +26,8 @@ DB_CONNECTION=mysql
 #DB_CONNECTION=null
 DB_HOST=127.0.0.1
 DB_PORT=3306
+
+# ---> konfigurasi database
 DB_DATABASE=
 DB_USERNAME=
 DB_PASSWORD=
