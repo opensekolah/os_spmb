@@ -12,13 +12,7 @@
                value="<?= $data['guru']->name ?>" required>
         </div>
 
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Jabatan</label>
-            <select name="role" class="form-control" required>
-            <option value="bendahara" <?= $data['guru']->role == 'bendahara' ? 'selected' : '' ?>>Bendahara</option>
-            <option value="wali" <?= $data['guru']->role == 'walikelas' ? 'selected' : '' ?>>Wali Kelas</option>
-        </select>
-        </div>
+        
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Username</label>
@@ -28,8 +22,8 @@
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Password</label>
-            <input type="text" name="password" class="form-control"
-               value="<?= Crypt::decrypt($data['guru']->password) ?>" required>
+            <input type="text" name="password" class="form-control" placeholder="Masukkan Password Baru"
+                >
         </div>
     </div>
 

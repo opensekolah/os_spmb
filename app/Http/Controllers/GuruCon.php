@@ -26,14 +26,21 @@ class GuruCon extends Controller
             'title' => 'Ruang Guru',
         ];
 
-        return view('rg-dashboard', compact('data'));
+        return redirect('/datasiswabaru');
     }
 
 
 
     public function dataguru()
     {
+        $data_sekolah = Data_sekolah::first();
+
+        if (!$data_sekolah) {
+            return redirect('/install')->with('success', 'Instalasi Website SPMB');
+        }
+
         $data = [
+            'data_sekolah' => $data_sekolah,
             'title' => 'Kelola Data Guru',
             'guru' => Guru::all(),
         ];
@@ -43,7 +50,14 @@ class GuruCon extends Controller
 
     public function dataguru_tambah()
     {
+        $data_sekolah = Data_sekolah::first();
+
+        if (!$data_sekolah) {
+            return redirect('/install')->with('success', 'Instalasi Website SPMB');
+        }
+
         $data = [
+            'data_sekolah' => $data_sekolah,
             'title' => 'Tambah Guru',
         ];
 
@@ -54,16 +68,15 @@ class GuruCon extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'username' => 'required|unique:guru,username',
+            'username' => 'required',
             'password' => 'required',
-            'role' => 'required'
         ]);
 
         Guru::create([
             'name' => $request->name,
             'username' => $request->username,
-            'password' => Crypt::encrypt($request->password),
-            'role' => $request->role
+            'password' => Hash::make($request->password),
+            'role' => 'admin'
         ]);
 
         return redirect('/dataguru')->with('success', 'Data guru berhasil disimpan');
@@ -80,7 +93,14 @@ class GuruCon extends Controller
     {
         $guru = Guru::findOrFail($id);
 
+        $data_sekolah = Data_sekolah::first();
+
+        if (!$data_sekolah) {
+            return redirect('/install')->with('success', 'Instalasi Website SPMB');
+        }
+
         $data = [
+            'data_sekolah' => $data_sekolah,
             'title' => 'Edit Guru',
             'guru' => $guru
         ];
@@ -93,21 +113,17 @@ class GuruCon extends Controller
         $request->validate([
             'name' => 'required',
             'username' => 'required',
-            'role' => 'required'
         ]);
 
         $guru = Guru::findOrFail($id);
 
-
-
         $dataUpdate = [
             'name' => $request->name,
             'username' => $request->username,
-            'role' => $request->role
         ];
 
         if ($request->password) {
-            $dataUpdate['password'] = Crypt::encrypt($request->password);
+            $dataUpdate['password'] = Hash::make($request->password);
         }
 
         $guru->update($dataUpdate);

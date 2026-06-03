@@ -14,9 +14,7 @@
             <tr>
                 <th>No</th>
                 <th>Nama</th>
-                <th>Jabatan</th>
                 <th>Username</th>
-                <th>Password</th>
                 <th>Aksi</th>
             </tr>
         </thead>
@@ -28,12 +26,10 @@
             <tr>
                 <td><?= $no++ ?></td>
                 <td><?= $g->name ?></td>
-                <td><?= $g->role == 'bendahara' ? 'Bendahara' : 'Wali Kelas' ?></td>
                 <td><?= $g->username ?></td>
-                <td><?= Crypt::decrypt($g->password) ?></td>
                 <td>
                     <button onclick="window.location.href='/editguru/<?= $g->id ?>'"
-                        class="btn btn-sm btn-primary">Edit</button>
+                        class="btn btn-sm btn-primary">Ubah Password</button>
                     <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
                         data-id="<?= $g->id ?>">Hapus</button>
                 </td>
@@ -42,7 +38,7 @@
             <?php else: ?>
 
             <tr>
-                <td colspan="6" class="text-center text-muted">
+                <td colspan="4" class="text-center text-muted">
                     Data guru belum ada
                 </td>
             </tr>

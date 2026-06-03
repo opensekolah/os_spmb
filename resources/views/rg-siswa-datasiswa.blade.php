@@ -3,7 +3,43 @@
 <div class="content-area">
     <!-- start content-area -->
 
+    <div class="container my-4">
 
+        <div class="row g-3">
+
+            <!-- TOTAL -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 text-center bg-primary text-white">
+                    <div class="card-body">
+                        <h6>Jumlah Calon Murid Baru</h6>
+                        <h1 class="fw-bold">{{ $data['total'] }}</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LAKI-LAKI -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 text-center bg-success text-white">
+                    <div class="card-body">
+                        <h6>Laki-Laki</h6>
+                        <h1 class="fw-bold">{{ $data['laki'] }}</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PEREMPUAN -->
+            <div class="col-md-4">
+                <div class="card shadow-sm border-0 text-center bg-danger text-white">
+                    <div class="card-body">
+                        <h6>Perempuan</h6>
+                        <h1 class="fw-bold">{{ $data['perempuan'] }}</h1>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
     <blockquote class="blockquote p-3 bg-light border-start border-4 border-primary rounded">
 
         <p class="mb-2">
@@ -46,8 +82,8 @@
                 <td><?= $s->no_whatsapp ?></td>
                 <td><?= $s->status ?></td>
                 <td>
-                    <button onclick="window.location.href='/terima/<?= $s->id ?>'" class="btn btn-sm btn-outline-success"
-                        title="Terima"><i data-lucide="check"></i></button>
+                    <button onclick="window.location.href='/terima/<?= $s->id ?>'"
+                        class="btn btn-sm btn-outline-success" title="Terima"><i data-lucide="check"></i></button>
                     <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
                         onclick="window.location.href='/tolak/<?= $s->id ?>'" title="Tolak"><i
                             data-lucide="x"></i></button>

@@ -7,7 +7,7 @@
     <!-- Preview -->
     <div class="mb-3">
         <label>Banner Saat Ini</label><br>
-        <img src="{{ asset('uploads/' . $data['banner_image']) }}" width="300">
+        <img src="{{ $data['data_sekolah']->pamflet_sekolah }}" width="300">
     </div>
 
     <!-- Form Upload -->

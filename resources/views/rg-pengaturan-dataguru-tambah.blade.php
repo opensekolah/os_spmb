@@ -11,14 +11,7 @@
             <input type="text" name="name" class="form-control" required>
         </div>
 
-        <div class="col-md-6 mb-3">
-            <label class="form-label">Jabatan</label>
-            <select name="role" class="form-select" required>
-                <option value="">-- Pilih Jabatan --</option>
-                <option value="bendahara">Bendahara</option>
-                <option value="walikelas">Wali Kelas</option>
-            </select>
-        </div>
+        
 
         <div class="col-md-6 mb-3">
             <label class="form-label">Username</label>

@@ -32,8 +32,11 @@ class SiswaCon extends Controller
         }
 
         $data = [
+            'total' => Identitas_siswa::count(),
+            'laki' => Identitas_siswa::where('jk', 'L')->count(),
+            'perempuan' => Identitas_siswa::where('jk', 'P')->count(),
             'data_sekolah' => $data_sekolah,
-            'title' => 'Data Siswa Baru',
+            'title' => 'Dashboard',
             'siswa' => $siswa,
         ];
 

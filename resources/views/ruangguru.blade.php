@@ -10,7 +10,7 @@
         <nav class="menubar">
 
             <a href="/ruangguru">
-                <div class="menubarlist <?= $data['title'] == 'Ruang Guru' ? 'active' : '' ?>">
+                <div class="menubarlist <?= $data['title'] == 'Dashboard' ? 'active' : '' ?>">
                     <i data-lucide="home"></i>
                     <span>Dashboard</span>
                 </div>
@@ -19,12 +19,7 @@
                     Perencanaan :
                 </div-->
 
-            <a href="/datasiswabaru">
-                <div class="menubarlist <?= $data['title'] == 'Kelola Data Siswa' ? 'active' : '' ?>">
-                    <i data-lucide="users"></i>
-                    <span>Data Siswa Baru</span>
-                </div>
-            </a>
+            
             
             <a href="/pengaturan">
                 <div class="menubarlist <?= $data['title'] == 'Pengaturan' ? 'active' : '' ?>">
