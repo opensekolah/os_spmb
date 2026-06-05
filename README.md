@@ -8,3 +8,10 @@
 4. Isikan url website anda dan database anda (nama database, username, password)
 5. Ke terminal di hostingan, lakukan composer install dan php artisan key:generate
 6. Buka website dan anda akan mendapatkan tampilan instalasi website
+
+## PANDUAN UPDATE
+1. Masuk Ke Terminal di hosting
+2. cd ke folder website
+3. git pull origin main
+4. composer install
+5. php artisan optimize:clear
