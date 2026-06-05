@@ -20,7 +20,7 @@
                 </h2>
 
                 <p class="deskripsi-spmb">
-                    Hai anak-anak! 👋 <br>
+                    Hai anak-anak! 👋 tes update<br>
                     Yuk isi formulir di bawah ini untuk bergabung menjadi bagian dari <br>
                     <b>{{ $data['data_sekolah']->nama_sekolah }}</b> ✨
                 </p>
