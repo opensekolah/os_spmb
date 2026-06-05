@@ -151,8 +151,69 @@ class SiswaCon extends Controller
             'penghasilan_ibu' => $request->penghasilan_ibu,
         ]);
 
+        //pesan kesan
+        $penulis = $request->penulis;
+        $konten = $request->konten;
+
+        if (!empty($konten)) {
+
+            try {
+
+                $data = [
+                    'penulis' => $penulis,
+                    'konten' => $konten
+                ];
+
+                //dd($data);
+
+                $ch = curl_init();
+
+                curl_setopt_array($ch, [
+                    CURLOPT_URL => "https://smpmaarifnuwanareja.sch.id/api/apipesankesan",
+                    CURLOPT_POST => true,
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_TIMEOUT => 5,
+                    CURLOPT_HTTPHEADER => [
+                        'Content-Type: application/json'
+                    ],
+                    CURLOPT_POSTFIELDS => json_encode($data),
+                ]);
+
+                $response = curl_exec($ch);
+
+                if ($response === false) {
+                    dd('CURL ERROR: ' . curl_error($ch));
+                }
+
+                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+                
+
+                // ❗ paksa jadi exception kalau error
+                if (curl_errno($ch)) {
+                    throw new \Exception(curl_error($ch));
+                }
+
+                curl_close($ch);
+
+            } catch (\Exception $e) {
+
+                // ini yang kamu mau
+                $error = $e->getMessage();
+
+                // optional: bisa kamu pakai / simpan
+                // echo $error;
+                // file_put_contents(...);
+
+            }
+        }
+        ;
+
         //return redirect()->back()->with('success', 'Formulir berhasil disimpan');
+
         return redirect('/ruangkelas')->with('success', 'Formulir berhasil disimpan');
+
+        //return redirect('/ruangkelas')->with('success', $response);
     }
     public function terima($id)
     {
@@ -187,6 +248,18 @@ class SiswaCon extends Controller
     public function exportExcel()
     {
         return Excel::download(new SiswaExport, 'Data-Siswa-Baru.xlsx');
+    }
+
+    public function apisiswa()
+    {
+        $siswa = Siswa::selectRaw('UPPER(name) as name, UPPER(no_whatsapp) as no_whatsapp')
+            ->orderBy('name', 'asc')
+            ->get();
+
+        return response()->json([
+            'status' => true,
+            'data' => $siswa
+        ]);
     }
 
 

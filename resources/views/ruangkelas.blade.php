@@ -282,6 +282,12 @@
                                             </select>
                                         </div>
 
+                                        <div class="mb-3">
+                                            <label for="" class="form-label">Motivasi Sekolah di SMP Ma'arif NU 01 Wanareja</label>
+                                            <textarea name="konten" class="form-control mb-3" placeholder="Tulis motivasi kamu"></textarea>
+                                            <input type="hidden" name="penulis" value="{{ $data['siswa']['name'] }}">
+                                        </div>
+
 
                                     </div>
                                 </div>

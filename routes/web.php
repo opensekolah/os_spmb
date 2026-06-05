@@ -50,6 +50,7 @@ Route::post('/siswadaftar', [SiswaCon::class, 'siswa_daftar']);
 Route::get('/ruangkelas', [KelasCon::class, 'ruangkelas']);
 
 Route::post('/siswaidentitas', [SiswaCon::class, 'siswa_identitas']);
+Route::get('/apisiswa', [SiswaCon::class, 'apisiswa']);
 
 
 Route::middleware(['cekmasukguru'])->group(function () {
@@ -77,6 +78,7 @@ Route::middleware(['cekmasukguru'])->group(function () {
     Route::get('/terima/{id}', [SiswaCon::class, 'terima']);
     Route::get('/tolak/{id}', [SiswaCon::class, 'tolak']);
     Route::get('/datasiswaexcel', [SiswaCon::class, 'exportExcel']);
+
 
 
 
