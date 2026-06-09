@@ -13,7 +13,7 @@
             <p>Selamat datang di Instalasi Website SPMB <br>Silahkan isikan identitas sekolah untuk dapat mulai
                 menggunakan website ini.</p>
             <div class="container mt-4">
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
                     <strong>Peringatan!</strong><br>
                     Website ini belum siap diisi oleh siswa. Data harus diinput terlebih dahulu oleh petugas
                     sekolah.<br><br>
