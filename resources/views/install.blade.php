@@ -12,6 +12,16 @@
             <h1>Instalasi SPMB</h1>
             <p>Selamat datang di Instalasi Website SPMB <br>Silahkan isikan identitas sekolah untuk dapat mulai
                 menggunakan website ini.</p>
+            <div class="container mt-4">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    <strong>Peringatan!</strong><br>
+                    Website ini belum siap diisi oleh siswa. Data harus diinput terlebih dahulu oleh petugas
+                    sekolah.<br><br>
+                    Silakan lengkapi pengaturan berikut ini sebelum website digunakan oleh siswa.
+
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
             <form method="POST" action="/install" enctype="multipart/form-data">
                 <!-- CSRF kalau di Blade -->
                 @csrf
