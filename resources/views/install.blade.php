@@ -64,7 +64,7 @@
                         <strong>Informasi Akun Petugas</strong><br>
                         Simpan akun ini dengan baik karena akan digunakan untuk login oleh petugas sekolah.<br><br>
                         Setelah berhasil login pertama kali, petugas dapat menambahkan akun guru atau petugas lainnya
-                        melalui menu manajemen pengguna.
+                        melalui menu Pengaturan.
                     </div>
                 </div>
 
